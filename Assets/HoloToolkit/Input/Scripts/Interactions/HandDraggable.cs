@@ -192,7 +192,9 @@ namespace HoloToolkit.Unity.InputModule
 
             if (IsOrientTowardsUser)
             {
+
                 draggingRotation = Quaternion.LookRotation(HostTransform.position - pivotPosition);
+
             }
             else
             {

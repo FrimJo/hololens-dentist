@@ -15,6 +15,10 @@ namespace HoloToolkit.Unity
         [SerializeField]
         private TextMesh textMesh;
 
+        [Tooltip("Reference to 3DText UI control where the FPS should be displayed.")]
+        [SerializeField]
+        private TextMesh text3D;
+
         [Tooltip("How many frames should we consider into our average calculation?")]
         [SerializeField]
         private int frameRange = 60;
@@ -72,6 +76,11 @@ namespace HoloToolkit.Unity
             {
                 textMesh.text = displayString;
             }
+            if (text3D != null)
+            {
+                text3D.text = displayString;
+            }
+
         }
 
         private void UpdateFrameBuffer()
