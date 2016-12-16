@@ -40,15 +40,18 @@ public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
     
     public void OnInputClicked(InputEventData eventData)
     {
-        print("menu click!");        
-        if (anim.GetBool("isOpen") == false)
-        {
-            openMenu();
-        }
-        else
-        {
-            closeMenu();
-        }
+
+
+            print("menu click!");
+            if (anim.GetBool("isOpen") == false)
+            {
+                openMenu();
+            }
+            else
+            {
+                closeMenu();
+            }
+        
     }
     void openMenu()
     {
