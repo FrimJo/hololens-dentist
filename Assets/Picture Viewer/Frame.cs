@@ -10,38 +10,20 @@ public class Frame : MonoBehaviour {
 
     private Material material;
 
-    private MeshRenderer meshRenderer;
-
     // Use this for initialization
     void Start () {
         material = GetComponent<Renderer>().material;
-        updatePicture();
+        ChangePicture(0);
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
-    int normalizeIndex(int index)
+    void ChangePicture(int i)
     {
-        return (index + pictures.Length) % pictures.Length;
-    }
-
-    void updatePicture()
-    {
+        var j = i % pictures.Length;
+        curPicture = ((curPicture + j) + pictures.Length) % pictures.Length;
         material.mainTexture = pictures[curPicture];
-    }
-
-    void NextPicture()
-    {
-        curPicture = normalizeIndex(curPicture + 1);
-        updatePicture();
-    }
-
-    void PrevPicture()
-    {
-        curPicture = normalizeIndex(curPicture - 1);
-        updatePicture();
     }
 }

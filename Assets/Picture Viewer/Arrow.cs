@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HoloToolkit.Unity.InputModule;
-using System;
 
 public class Arrow : MonoBehaviour, IFocusable, IInputClickHandler {
-    public enum Dir { Prev, Next };
-    public Dir dir;
 
-    private GameObject frame;
-
+    public int step = 1;
+    
     private MeshRenderer indicator;
     
     // Use this for initialization
     void Start () {
-        frame = transform.parent.gameObject;
         indicator = transform.Find("Indicator").gameObject.GetComponentInChildren<MeshRenderer>();
         indicator.enabled = false;
-        print(indicator);
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public void OnFocusEnter()
@@ -38,16 +32,6 @@ public class Arrow : MonoBehaviour, IFocusable, IInputClickHandler {
 
     public void OnInputClicked(InputEventData eventData)
     {
-        switch(dir)
-        {
-            case Dir.Prev:
-                SendMessageUpwards("PrevPicture");
-                break;
-            case Dir.Next:
-                SendMessageUpwards("NextPicture");
-                break;
-        }
-        
+        SendMessageUpwards("ChangePicture", step);
     }
-
 }
