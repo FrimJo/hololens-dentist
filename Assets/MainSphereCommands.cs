@@ -19,10 +19,14 @@ public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
     // Update is called once per frame
     void Update()
     {
-        if (this.isFocused)
+       /* if (this.isFocused)
         {
             anim.SetBool("menuFocused", true);
-        }
+        }else
+        {
+            anim.SetBool("menuFocused", false);
+
+        }*/
     }
     public void OnFocusEnter()
       {
@@ -33,19 +37,27 @@ public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
       {
         this.isFocused = false;
     }
-  
+    
     public void OnInputClicked(InputEventData eventData)
     {
-        anim.SetBool("isOpen", true);
-        if (anim.GetBool("isOpen"))
+        openMenu();
+        /*
+        if (anim.GetBool("isOpen") == false)
         {
-            anim.SetBool("isOpen", false);
+            openMenu();
         }
         else
         {
-            anim.SetBool("isOpen", true);
-        }
-
+            closeMenu();
+        }*/
     }
-    
+    void openMenu()
+    {
+        anim.SetBool("menuFocused", true);
+    }
+    void closeMenu()
+    {
+        anim.SetBool("menuFocused", false);
+    }
+
 }
