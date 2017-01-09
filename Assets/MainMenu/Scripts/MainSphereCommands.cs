@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine.Events;
+using System;
+
 public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
 {
     Animator anim;
@@ -27,6 +29,7 @@ public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
             anim.SetBool("menuFocused", false);
 
         }
+
     }
     public void OnFocusEnter()
       {
@@ -61,5 +64,4 @@ public class MainSphereCommands : MonoBehaviour, IInputClickHandler, IFocusable
     {
         anim.SetBool("isOpen", false);
     }
-
 }

@@ -20,7 +20,7 @@ namespace HoloToolkit.Unity
     public class TapToPlace : MonoBehaviour, IInputClickHandler
     {
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
-        public string SavedAnchorFriendlyName = "SavedAnchorFriendlyName";
+        public string SavedAnchorFriendlyName = "movableCube";
 
         /// <summary>
         /// Manages persisted anchors.
