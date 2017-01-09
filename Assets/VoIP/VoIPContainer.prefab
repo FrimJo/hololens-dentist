@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23015394109539466}
   - component: {fileID: 65247230365766118}
   m_Layer: 0
-  m_Name: VoIPContainer 1
+  m_Name: VoIPContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
