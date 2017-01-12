@@ -54,14 +54,14 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     void setChildrenVisibility(bool visible)
     {
         // toggles the visibility of this gameobject and all it's children
-        var renderers = gameObject.GetComponentsInChildren<Renderer>();
+        var renderers = this.GetComponentsInChildren<MeshRenderer>();
         foreach (Renderer r in renderers)
         {
             r.enabled = visible;
         }
     }
     void setWrapperVisibility(bool visible) {
-        this.GetComponent<Renderer>().enabled = visible;
+        this.GetComponent<MeshRenderer>().enabled = visible;
         }
 
     public void OnInputClicked(InputEventData eventData)
