@@ -3,10 +3,13 @@
 
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
+using System;
 namespace HoloToolkit.Unity
 {
     /// <summary>
+    /// THIS IS A CUSTOM SCRIPT DERIVED FROM THE TapToPlace script in holotoolkit
     /// The TapToPlace class is a basic way to enable users to move objects 
     /// and place them on real world surfaces.
     /// Put this script on the object you want to be able to move. 
@@ -17,7 +20,7 @@ namespace HoloToolkit.Unity
     /// TapToPlace also adds a WorldAnchor component to enable persistence.
     /// </summary>
 
-    public class TapToPlace : MonoBehaviour, IInputClickHandler
+    public class DentistItem_TapToPlace : MonoBehaviour, IInputClickHandler
     {
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
         public string SavedAnchorFriendlyName = "movableCube";
@@ -32,7 +35,7 @@ namespace HoloToolkit.Unity
         /// to control rendering and to access the physics layer mask.
         /// </summary>
         private SpatialMappingManager spatialMappingManager;
-        
+
         /// <summary>
         /// Keeps track of if the user is moving the object or not.
         /// </summary>
@@ -97,6 +100,11 @@ namespace HoloToolkit.Unity
 
         public void OnInputClicked(InputEventData eventData)
         {
+            TogglePlacingStatus();
+        }
+        
+        public void TogglePlacingStatus()
+        {
             // On each tap gesture, toggle whether the user is in placing mode.
             placing = !placing;
 
@@ -115,6 +123,8 @@ namespace HoloToolkit.Unity
                 spatialMappingManager.DrawVisualMeshes = false;
                 // Add world anchor when object placement is done.
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
+                DentistItemScript dis = gameObject.GetComponent<DentistItemScript>();
+                dis.ChangeStatus(DentistItemScript.Statuses.Enabled);
             }
         }
     }

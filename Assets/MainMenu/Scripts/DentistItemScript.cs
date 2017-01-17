@@ -3,21 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using HoloToolkit.Unity;
 
 public class DentistItemScript : MonoBehaviour , IInputClickHandler
 {
+    private Renderer renderer;
     private Statuses Status;
+    private bool WrapperVisible;
     public enum Statuses { Disabled, Enabled, Placing };
-	// Use this for initialization
-	void Start () {
-        Status = Statuses.Disabled;
-        setWrapperVisibility(false);
-
+    [Tooltip("Template picture for selected feature")]
+    public Texture itemTexture;
+    // Use this for initialization
+    void Start () {
+    WrapperVisible = false;
+    Status = Statuses.Disabled;
+    setWrapperVisibility(false);
+    SetTexture();
     }
-	
-	// Update is called once per frame
-	void Update () {
-
+    private void SetTexture()
+    {
+        renderer = GetComponent<Renderer>();
+        renderer.material.mainTexture = itemTexture;
+    }
+    // Update is called once per frame
+    void Update () {
+        setWrapperVisibility(WrapperVisible);
         }
     public void ChangeStatus(Statuses newStatus)
     {
@@ -48,6 +58,7 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                     break;
             }
             Status = newStatus;
+            print("Wrapper render status: " + this.GetComponent<MeshRenderer>().enabled);
         }
         
     }
@@ -61,8 +72,18 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
         }
     }
     void setWrapperVisibility(bool visible) {
-        this.GetComponent<MeshRenderer>().enabled = visible;
+        
+            this.GetComponentInChildren<MeshRenderer>().enabled = visible;
+            this.GetComponent<BoxCollider>().enabled = visible;
+         
+        if (WrapperVisible != visible)
+        {
+            DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
+            TTP.TogglePlacingStatus();
         }
+        WrapperVisible = visible;
+
+    }
 
     public void OnInputClicked(InputEventData eventData)
     {
