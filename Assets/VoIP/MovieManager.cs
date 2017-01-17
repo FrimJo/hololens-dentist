@@ -12,6 +12,6 @@ public class MovieManager : MonoBehaviour, IInputClickHandler {
 	void Update () {}
 
 	public void OnInputClicked(InputEventData eventData) {
-		( (MovieTexture) GetComponent<Renderer>().material.mainTexture ).Play();
+		//( (MovieTexture) GetComponent<Renderer>().material.mainTexture ).Play();
 	}
 }
