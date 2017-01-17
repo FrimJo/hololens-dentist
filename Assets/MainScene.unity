@@ -89,6 +89,8 @@ NavMeshSettings:
     minRegionArea: 2
     manualCellSize: 0
     cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &2093563
@@ -200,7 +202,7 @@ Prefab:
     - target: {fileID: 224540060099364976, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -56.949997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224540060099364976, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -210,7 +212,7 @@ Prefab:
     - target: {fileID: 224540060099364976, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 113.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224408444744928142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -230,7 +232,7 @@ Prefab:
     - target: {fileID: 224408444744928142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -56.949997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224408444744928142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -240,7 +242,7 @@ Prefab:
     - target: {fileID: 224408444744928142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 113.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224728726349477586, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -260,7 +262,7 @@ Prefab:
     - target: {fileID: 224728726349477586, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -112.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224728726349477586, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -270,7 +272,7 @@ Prefab:
     - target: {fileID: 224728726349477586, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 124.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224006723194117142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -290,7 +292,7 @@ Prefab:
     - target: {fileID: 224006723194117142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -228.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224006723194117142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -300,7 +302,7 @@ Prefab:
     - target: {fileID: 224006723194117142, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 87.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224777084670400872, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -320,7 +322,7 @@ Prefab:
     - target: {fileID: 224777084670400872, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -321.34998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224777084670400872, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -330,7 +332,7 @@ Prefab:
     - target: {fileID: 224777084670400872, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 77.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224984088722576426, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -350,7 +352,7 @@ Prefab:
     - target: {fileID: 224984088722576426, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -414.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224984088722576426, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -360,7 +362,7 @@ Prefab:
     - target: {fileID: 224984088722576426, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 87.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224170863031746746, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -380,7 +382,7 @@ Prefab:
     - target: {fileID: 224170863031746746, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -507.14996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224170863031746746, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -390,7 +392,7 @@ Prefab:
     - target: {fileID: 224170863031746746, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 77.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224288078431194312, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -410,7 +412,7 @@ Prefab:
     - target: {fileID: 224288078431194312, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -613.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224288078431194312, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
@@ -420,7 +422,7 @@ Prefab:
     - target: {fileID: 224288078431194312, guid: a91f42106e500ef42a5df09c7d52e8f5,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 113.899994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136302340354626, guid: a91f42106e500ef42a5df09c7d52e8f5, type: 2}
       propertyPath: m_LocalScale.x
@@ -506,7 +508,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 441800900}
   m_Enabled: 1
-  serializedVersion: 7
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -531,6 +533,7 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_CCT: 6570
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &441800902
