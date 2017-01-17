@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 65749331052965094}
   - component: {fileID: 23219479780951958}
   m_Layer: 0
-  m_Name: CoolHologram
+  m_Name: CoolPictureFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
