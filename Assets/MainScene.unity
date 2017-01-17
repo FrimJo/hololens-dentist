@@ -755,7 +755,7 @@ Prefab:
     - target: {fileID: 114673262878540938, guid: 3467a7ed2ff7b4fe5896b0b5b4b174ef,
         type: 2}
       propertyPath: redPosition.z
-      value: -0.292
+      value: 2.17567
       objectReference: {fileID: 0}
     - target: {fileID: 4410099120693796, guid: 3467a7ed2ff7b4fe5896b0b5b4b174ef, type: 2}
       propertyPath: m_LocalScale.x
