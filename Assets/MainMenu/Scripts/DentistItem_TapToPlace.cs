@@ -69,6 +69,7 @@ namespace HoloToolkit.Unity
 
         private void Update()
         {
+            //placing = gameObject.GetComponent<DentistItemScript>().GetStatus().Equals(DentistItemScript.Statuses.Placing);
             // If the user is in placing mode,
             // update the placement to match the user's gaze.
             if (placing)

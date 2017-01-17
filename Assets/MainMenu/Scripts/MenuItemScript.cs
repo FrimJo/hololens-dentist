@@ -4,12 +4,14 @@ using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using System;
 
-public class MenuItemScript : MonoBehaviour, IInputClickHandler, IFocusable
+public class MenuItemScript : MonoBehaviour, IInputClickHandler//, IFocusable
 {
     [Tooltip("The colletion to show when menuitem is selected")]
     public GameObject CollectionToShow;
     [Tooltip("Image that represents the collection")]
     public Texture itemTexture;
+    [Tooltip("Menu item name tag (Unique)")]
+    public String TagName;
     private Animator anim;
     private Animator parentAnim;
     private bool isVisible;
@@ -32,26 +34,30 @@ public class MenuItemScript : MonoBehaviour, IInputClickHandler, IFocusable
 	}
     public void OnInputClicked(InputEventData eventData)
     {
+        
+            
+                if (isVisible)
+                {
+                    //anim.SetBool("isVisible", false);
+                    DentistItemScript DIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
+                    DIS.ChangeStatus(DentistItemScript.Statuses.Disabled);
+                }
+                else
+                {
+                    //anim.SetBool("isVisible", true);
+                    DentistItemScript DIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
+                    DIS.ChangeStatus(DentistItemScript.Statuses.Placing);
+                }
+                isVisible = !isVisible;
+                parentAnim.SetBool("isOpen", false);
+        
+        
         print("menuItem clicked!");
-        if (isVisible)
-        {
-            //anim.SetBool("isVisible", false);
-            DentistItemScript MIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
-            MIS.ChangeStatus(DentistItemScript.Statuses.Disabled);
-        }
-        else
-        {
-            //anim.SetBool("isVisible", true);
-            DentistItemScript MIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
-            MIS.ChangeStatus(DentistItemScript.Statuses.Placing);
-        }
-        isVisible = !isVisible;
-        parentAnim.SetBool("isOpen", false);
-
+     
 
     }
 
-    public void OnFocusEnter()
+   /* public void OnFocusEnter()
     {
         throw new NotImplementedException();
     }
@@ -59,5 +65,5 @@ public class MenuItemScript : MonoBehaviour, IInputClickHandler, IFocusable
     public void OnFocusExit()
     {
         throw new NotImplementedException();
-    }
+    }*/
 }

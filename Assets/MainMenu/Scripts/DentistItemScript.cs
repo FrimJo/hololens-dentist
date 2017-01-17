@@ -10,7 +10,7 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     private Renderer renderer;
     private Statuses Status;
     private bool WrapperVisible;
-    public enum Statuses { Disabled, Enabled, Placing };
+    public enum Statuses { Disabled, Enabled, Placing, ReadyToPlace };
     [Tooltip("Template picture for selected feature")]
     public Texture itemTexture;
     // Use this for initialization
@@ -48,19 +48,39 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                     this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
                     //Hide wrapper, show item content
                     break;
-                case Statuses.Placing:
+                
+                case Statuses.ReadyToPlace:
                     setWrapperVisibility(true);
                     //SHow wrapper
-                    if (Status.Equals(Statuses.Enabled)){
+                    if (Status.Equals(Statuses.Enabled))
+                    {
                         //Hide content
                         this.GetComponentInChildren<Animator>().SetBool("isVisible", false);
                     }
+                    break;
+                case Statuses.Placing:
+                    if (!Status.Equals(Statuses.ReadyToPlace))
+                    {
+                        setWrapperVisibility(true);
+                        //SHow wrapper
+                        if (Status.Equals(Statuses.Enabled))
+                        {
+                            //Hide content
+                            this.GetComponentInChildren<Animator>().SetBool("isVisible", false);
+                        }
+                    }
+                    togglePlacableObject();
+
                     break;
             }
             Status = newStatus;
             print("Wrapper render status: " + this.GetComponent<MeshRenderer>().enabled);
         }
         
+    }
+    public Statuses GetStatus()
+    {
+        return Status;
     }
     void setChildrenVisibility(bool visible)
     {
@@ -76,17 +96,26 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
             this.GetComponentInChildren<MeshRenderer>().enabled = visible;
             this.GetComponent<BoxCollider>().enabled = visible;
          
-        if (WrapperVisible != visible)
-        {
-            DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
-            TTP.TogglePlacingStatus();
-        }
         WrapperVisible = visible;
 
+    }
+    void togglePlacableObject()
+    {
+        DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
+        TTP.TogglePlacingStatus();
     }
 
     public void OnInputClicked(InputEventData eventData)
     {
-        ChangeStatus(Statuses.Enabled);
+        switch (Status)
+        {
+            case Statuses.ReadyToPlace:
+                ChangeStatus(Statuses.Placing);
+                break;
+            case Statuses.Placing:
+                ChangeStatus(Statuses.Enabled);
+                break;
+        }
+        
     }
 }

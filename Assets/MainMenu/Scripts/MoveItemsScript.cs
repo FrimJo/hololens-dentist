@@ -7,13 +7,12 @@ using System;
 public class MoveItemsScript : MonoBehaviour, IInputClickHandler
 {
 
-    GameObject MainMenuParent;
+    public GameObject AllFeaturesParent;
     // Use this for initialization
     void Start () {
-        MainMenuParent = this.transform.parent.gameObject;
+       
 
     }
-	
 	// Update is called once per frame
 	void Update () {
 		
@@ -26,10 +25,16 @@ public class MoveItemsScript : MonoBehaviour, IInputClickHandler
 
     private void setPlacingStatusToItems()
     {
-        DentistItemScript[] ItemControllers = MainMenuParent.GetComponentsInChildren<DentistItemScript>();
+        print("Trying to set ready to place status on all items");
+        DentistItemScript[] ItemControllers = AllFeaturesParent.GetComponentsInChildren<DentistItemScript>();
         foreach (DentistItemScript ICtrl in ItemControllers)
         {
-            ICtrl.ChangeStatus(DentistItemScript.Statuses.Placing);
+            print(ICtrl.GetStatus());
+            if (!ICtrl.GetStatus().Equals(DentistItemScript.Statuses.Disabled))
+            {
+                print("Found object that will be ready to place");
+                ICtrl.ChangeStatus(DentistItemScript.Statuses.ReadyToPlace);
+            }
         }
     }
 }
