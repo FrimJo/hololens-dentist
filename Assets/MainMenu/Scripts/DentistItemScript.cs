@@ -11,7 +11,7 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     private Statuses Status;
     private bool WrapperVisible;
     public enum Statuses { Disabled, Enabled, Placing, ReadyToPlace };
-    [Tooltip("Template picture for selected feature")]
+    [Tooltip("Template picture for selected feature NOT ACTIVE")]
     public Texture itemTexture;
     // Use this for initialization
     void Start () {
@@ -22,8 +22,10 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     }
     private void SetTexture()
     {
+       /*
         renderer = GetComponent<Renderer>();
         renderer.material.mainTexture = itemTexture;
+        */
     }
     // Update is called once per frame
     void Update () {
@@ -44,37 +46,33 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                     break;
                 case Statuses.Enabled:
                     setWrapperVisibility(false);
-                    setChildrenVisibility(true);
-                    this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
+                    SetPlacableObject(false);
                     //Hide wrapper, show item content
                     break;
-                
+                //If item is in placable limbo. It can be moved but will not be enabled by placing it.
                 case Statuses.ReadyToPlace:
-                    setWrapperVisibility(true);
                     //SHow wrapper
-                    if (Status.Equals(Statuses.Enabled))
-                    {
-                        //Hide content
-                        this.GetComponentInChildren<Animator>().SetBool("isVisible", false);
-                    }
+                    setWrapperVisibility(true);
+                    //Hide content
+                    setChildrenVisibility(true);
+                    this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
+
                     break;
+                //When item is being placed and will be enabled upon click.
                 case Statuses.Placing:
-                    if (!Status.Equals(Statuses.ReadyToPlace))
-                    {
+                    SetPlacableObject(true);
                         setWrapperVisibility(true);
                         //SHow wrapper
-                        if (Status.Equals(Statuses.Enabled))
+                        if (Status.Equals(Statuses.Disabled))
                         {
-                            //Hide content
-                            this.GetComponentInChildren<Animator>().SetBool("isVisible", false);
+                            //Show Content
+                            setChildrenVisibility(true);
+                            this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
                         }
-                    }
-                    togglePlacableObject();
-
                     break;
             }
             Status = newStatus;
-            print("Wrapper render status: " + this.GetComponent<MeshRenderer>().enabled);
+            print("Wrapper  status: " + Status);
         }
         
     }
@@ -99,7 +97,12 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
         WrapperVisible = visible;
 
     }
-    void togglePlacableObject()
+    void SetPlacableObject(bool IsPlacing)
+    {
+        DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
+        TTP.SetPlacingStatus(IsPlacing);
+    }
+    void TogglePlacebleObject()
     {
         DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
         TTP.TogglePlacingStatus();
@@ -110,7 +113,7 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
         switch (Status)
         {
             case Statuses.ReadyToPlace:
-                ChangeStatus(Statuses.Placing);
+                TogglePlacebleObject();
                 break;
             case Statuses.Placing:
                 ChangeStatus(Statuses.Enabled);
