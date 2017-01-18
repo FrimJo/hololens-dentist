@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Wireframe
-  m_Shader: {fileID: 4800000, guid: 0d08dd59087697b44a68a02cc9a7c3a2, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -92,6 +92,9 @@ Material:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _LineWidth
+      second: 0.2
+    - first:
         name: _Metallic
       second: 0
     - first:
@@ -116,15 +119,9 @@ Material:
         name: _UVSec
       second: 0
     - first:
-        name: _WireThickness
-      second: 100
-    - first:
         name: _ZWrite
       second: 1
     m_Colors:
-    - first:
-        name: _BaseColor
-      second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _Color
       second: {r: 1, g: 1, b: 1, a: 1}
@@ -132,5 +129,8 @@ Material:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
-        name: _WireColor
+        name: _GridColor
+      second: {r: 1, g: 1, b: 1, a: 0}
+    - first:
+        name: _LineColor
       second: {r: 1, g: 1, b: 1, a: 1}
