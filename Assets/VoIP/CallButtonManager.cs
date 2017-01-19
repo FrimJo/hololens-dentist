@@ -36,13 +36,25 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
 		
 		if (this._movie.isPlaying)
 		{
+			// Stop movie
 			this._movie.Stop ();
+
+			// Change color
 			GetComponent<Renderer> ().material = this.playMaterial;
+
+			// Move button inwards
+			//transform.Translate(Vector3.right * 4.6f);
 		}
 		else
 		{
+			// Play movie
 			this._movie.Play ();
+
+			// Change color
 			GetComponent<Renderer> ().material = this.stopMaterial;
+
+			// Move button outwards
+			// transform.Translate(Vector3.right * -4.6f);
 		}
 	}
 }
