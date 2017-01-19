@@ -28,7 +28,8 @@ public class MenuFormBehaviour : MonoBehaviour {
         
         if (EventSystemObject)
         {
-            eventSystem = EventSystemObject.GetComponent<EventSystem>();
+            //eventSystem = EventSystemObject.GetComponent<EventSystem>();
+            eventSystem = EventSystem.current;
         }
         
     }
