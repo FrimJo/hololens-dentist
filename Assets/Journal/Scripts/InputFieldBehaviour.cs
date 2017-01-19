@@ -43,7 +43,7 @@ public class InputFieldBehaviour : MonoBehaviour {
     {
         if (formBehaviour)
         {
-            formBehaviour.SetSelectedInputField(this.GetComponent<InputField>());
+            formBehaviour.SetSelectedGameObject(this.gameObject);
         }
     }
 }
