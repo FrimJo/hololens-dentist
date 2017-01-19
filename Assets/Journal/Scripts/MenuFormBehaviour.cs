@@ -9,13 +9,13 @@ using UnityEngine.Windows.Speech;
 public class MenuFormBehaviour : MonoBehaviour {
 
     private DictationRecognizer dictationRecognizer;
-    private InputField currentFocus;
+    //private InputField currentFocus;
 
     public GameObject EventSystemObject;
     private EventSystem eventSystem;
 
-    private String currentText;
-    private String hypText;
+    private String currentText = "";
+    private String hypText = "";
 
     // Use this for initialization
     void Start () {
@@ -23,10 +23,14 @@ public class MenuFormBehaviour : MonoBehaviour {
         dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
         dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
 
+        //eventSystem = EventSystem.current;
+
+        
         if (EventSystemObject)
         {
             eventSystem = EventSystemObject.GetComponent<EventSystem>();
         }
+        
     }
 
     // Update is called once per frame
@@ -43,19 +47,34 @@ public class MenuFormBehaviour : MonoBehaviour {
     private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
     {
         print(text);
-        currentText = currentText + ". " + text;
+        if (confidence == ConfidenceLevel.High)
+        {
+            if (text.Equals("next"))
+            {
+                Selectable next = eventSystem.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnRight();
+                if (!next)
+                {
+                    eventSystem.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
+                }
+                SetSelectedGameObject(next.gameObject);
+            }
+            else if (text.Equals("stop"))
+            {
+                SetSelectedGameObject(null);
+            }
+            else
+            {
+                currentText = currentText + ". " + text;
+            }
+        }
     }
 
-    public void SetSelectedInputField(InputField field)
+    public void SetSelectedGameObject(GameObject o)
     {
-        currentFocus = field;
         currentText = hypText = "";
+        eventSystem.SetSelectedGameObject(o, null);
 
-        if (field)
-        {
-            eventSystem.SetSelectedGameObject(currentFocus.GetComponent<GameObject>(), null);
-            dictationRecognizer.Start();
-        } else
+        if (!o)
         {
             dictationRecognizer.Stop();
             /*
@@ -64,14 +83,36 @@ public class MenuFormBehaviour : MonoBehaviour {
             dictationRecognizer.Dispose();
             */
         }
+    }
+
+    /*
+    public void SetSelectedInputField(GameObject field)
+    {
+        //currentFocus = field;
+        currentText = hypText = "";
+
+        if (field)
+        {
+            eventSystem.SetSelectedGameObject(field, null);
+            dictationRecognizer.Start();
+        } else
+        {
+            dictationRecognizer.Stop();
+        }
         
     }
+    */
 
     private void setTextOnFocused()
     {
-        if (currentFocus)
+        if (eventSystem.currentSelectedGameObject)
         {
-            currentFocus.text = currentText + ". " + hypText;
+            if (eventSystem.currentSelectedGameObject.GetComponent<InputField>())
+            {
+                InputField field = eventSystem.currentSelectedGameObject.GetComponent<InputField>();
+                
+                field.text = currentText + ". " + hypText;
+            }
         }
     }
 }
