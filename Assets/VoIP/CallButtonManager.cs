@@ -43,7 +43,7 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
 			GetComponent<Renderer> ().material = this.playMaterial;
 
 			// Move button inwards
-			transform.localPosition -= Vector3.right * 0.079f;
+			transform.localPosition -= Vector3.right * 0.23f;
 		}
 		else
 		{
@@ -54,7 +54,7 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
 			GetComponent<Renderer> ().material = this.stopMaterial;
 
 			// Move button outwards
-			transform.localPosition += Vector3.right * 0.079f;
+			transform.localPosition += Vector3.right * 0.23f;
 		}
 	}
 }
