@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Wireframe
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
+  m_Name: TransparentMesh
+  m_Shader: {fileID: 30, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _USECOLOR_ON _USEMAINTEX_ON
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -46,9 +46,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
-        name: _MainTex
+        name: _EmissionTex
       second:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 11fbd99e5394a9b46a577eabcda7d3f0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -74,6 +80,12 @@ Material:
         name: _BumpScale
       second: 1
     - first:
+        name: _ColorWriteMask
+      second: 15
+    - first:
+        name: _Cull
+      second: 2
+    - first:
         name: _Cutoff
       second: 0.5
     - first:
@@ -81,7 +93,7 @@ Material:
       second: 1
     - first:
         name: _DstBlend
-      second: 0
+      second: 10
     - first:
         name: _GlossMapScale
       second: 1
@@ -93,13 +105,13 @@ Material:
       second: 1
     - first:
         name: _LineWidth
-      second: 0.2
+      second: 0.05
     - first:
         name: _Metallic
       second: 0
     - first:
         name: _Mode
-      second: 0
+      second: 3
     - first:
         name: _OcclusionStrength
       second: 1
@@ -119,18 +131,39 @@ Material:
         name: _UVSec
       second: 0
     - first:
-        name: _ZWrite
+        name: _UseColor
       second: 1
+    - first:
+        name: _UseEmissionTex
+      second: 0
+    - first:
+        name: _UseMainTex
+      second: 1
+    - first:
+        name: _WireThickness
+      second: 419
+    - first:
+        name: _ZTest
+      second: 4
+    - first:
+        name: _ZWrite
+      second: 0
     m_Colors:
     - first:
+        name: _BaseColor
+      second: {r: 0.3897059, g: 0.52018255, b: 1, a: 0.116}
+    - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.478, g: 0.659, b: 1, a: 0.328}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _GridColor
-      second: {r: 1, g: 1, b: 1, a: 0}
+      second: {r: 0.647, g: 1, b: 1, a: 0}
     - first:
         name: _LineColor
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0.778, b: 1, a: 0.553}
+    - first:
+        name: _WireColor
+      second: {r: 1, g: 1, b: 1, a: 0.691}
