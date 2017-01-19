@@ -22,10 +22,10 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     }
     private void SetTexture()
     {
-       
+       /*
         renderer = GetComponent<Renderer>();
         renderer.material.mainTexture = itemTexture;
-        
+        */
     }
     // Update is called once per frame
     void Update () {

@@ -26,7 +26,7 @@ public class MenuItemScript : MonoBehaviour, IInputClickHandler//, IFocusable
     }
 	private void SetTexture()
     {
-        material.mainTexture = itemTexture;
+      //  material.mainTexture = itemTexture;
     }
 	// Update is called once per frame
 	void Update () {
