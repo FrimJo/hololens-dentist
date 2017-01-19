@@ -72,7 +72,7 @@ public class MenuFormBehaviour : MonoBehaviour {
     public void SetSelectedGameObject(GameObject o)
     {
         currentText = hypText = "";
-        eventSystem.SetSelectedGameObject(o, null);
+        eventSystem.SetSelectedGameObject(o);
 
         if (!o)
         {
