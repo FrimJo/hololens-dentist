@@ -8,32 +8,41 @@ public class MoveItemsScript : MonoBehaviour, IInputClickHandler
 {
 
     public GameObject AllFeaturesParent;
+    private bool IsMovable;
     // Use this for initialization
     void Start () {
-       
-
+        IsMovable = false;
     }
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {	
 	}
 
     public void OnInputClicked(InputEventData eventData)
     {
-        setPlacingStatusToItems();
+        TogglePlacingStatusToItems();
     }
 
-    private void setPlacingStatusToItems()
+    private void TogglePlacingStatusToItems()
     {
+        IsMovable = !IsMovable;
+
         print("Trying to set ready to place status on all items");
         DentistItemScript[] ItemControllers = AllFeaturesParent.GetComponentsInChildren<DentistItemScript>();
         foreach (DentistItemScript ICtrl in ItemControllers)
         {
-            print(ICtrl.GetStatus());
+            
             if (!ICtrl.GetStatus().Equals(DentistItemScript.Statuses.Disabled))
             {
-                print("Found object that will be ready to place");
-                ICtrl.ChangeStatus(DentistItemScript.Statuses.ReadyToPlace);
+                if (IsMovable)
+                {
+                    print("Found object that will be ready to place");
+                    ICtrl.ChangeStatus(DentistItemScript.Statuses.ReadyToPlace);
+                }else
+                {
+                    print("Found object that will be enabled");
+                    ICtrl.ChangeStatus(DentistItemScript.Statuses.Enabled);
+                }
+                    
             }
         }
     }
