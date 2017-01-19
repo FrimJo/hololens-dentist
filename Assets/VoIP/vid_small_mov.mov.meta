@@ -1,0 +1,58 @@
+fileFormatVersion: 2
+guid: 593a8fcc904464a2c829180996cb70ba
+timeCreated: 1484834062
+licenseType: Free
+VideoClipImporter:
+  serializedVersion: 2
+  useLegacyImporter: 1
+  quality: 0.5
+  isColorLinear: 0
+  originalWidth: 480
+  originalHeight: 270
+  frameRange: 0
+  startFrame: -1
+  endFrame: -1
+  frameCount: 446
+  frameRate: 29.980012893676758
+  colorSpace: 0
+  deinterlace: 0
+  sourceFileSize: 1597206
+  encodeAlpha: 0
+  sourceHasAlpha: 0
+  flipVertical: 0
+  flipHorizontal: 0
+  audioImportMode: 1
+  sourceAudioChannelCount: 0100
+  sourceAudioSampleRate: 44ac0000
+  targetSettings:
+    0:
+      enableTranscoding: 0
+      codec: 0
+      resizeFormat: 0
+      aspectRatio: 0
+      customWidth: 480
+      customHeight: 270
+      bitrateMode: 2
+      spatialQuality: 2
+  output:
+    format: 0
+    settings:
+      enableTranscoding: 0
+      codec: 0
+      resizeFormat: 0
+      aspectRatio: 0
+      customWidth: 480
+      customHeight: 270
+      bitrateMode: 2
+      spatialQuality: 2
+    encodedWidth: 480
+    encodedHeight: 270
+    encodedStartFrame: 0
+    encodedEndFrame: 446
+    streamedResource:
+      source: Assets/VoIP/vid_small_mov.mov
+      offset: 0
+      size: 1597206
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
