@@ -72,6 +72,15 @@ public class MenuFormBehaviour : MonoBehaviour {
     public void SetSelectedGameObject(GameObject o)
     {
         currentText = hypText = "";
+
+        if (eventSystem.currentSelectedGameObject.GetInstanceID() != o.GetInstanceID())
+        {
+            if (dictationRecognizer.Status != SpeechSystemStatus.Running)
+            {
+                dictationRecognizer.Start();
+            }
+        }
+
         eventSystem.SetSelectedGameObject(o);
 
         if (!o)
@@ -84,24 +93,7 @@ public class MenuFormBehaviour : MonoBehaviour {
             */
         }
     }
-
-    /*
-    public void SetSelectedInputField(GameObject field)
-    {
-        //currentFocus = field;
-        currentText = hypText = "";
-
-        if (field)
-        {
-            eventSystem.SetSelectedGameObject(field, null);
-            dictationRecognizer.Start();
-        } else
-        {
-            dictationRecognizer.Stop();
-        }
-        
-    }
-    */
+    
 
     private void setTextOnFocused()
     {
