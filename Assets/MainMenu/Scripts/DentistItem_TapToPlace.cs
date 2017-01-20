@@ -39,10 +39,15 @@ namespace HoloToolkit.Unity
         /// <summary>
         /// Keeps track of if the user is moving the object or not.
         /// </summary>
-        private bool placing;
+		private bool placing;
+
+		private Rigidbody rigidbody;
 
         private void Start()
         {
+			// Get the rigidbody component for use in uppdate function.
+			rigidbody = GetComponent<Rigidbody> ();
+
             // Make sure we have all the components in the scene we need.
             anchorManager = WorldAnchorManager.Instance;
             if (anchorManager == null)
@@ -106,12 +111,16 @@ namespace HoloToolkit.Unity
          */
         public void SetPlacingStatus(bool NewPlacingStatus)
         {
-            // On each tap gesture, toggle whether the user is in placing mode.
-            placing = NewPlacingStatus;
+				
+            // On each tap gesture, toggle whether the user is in placing mode, and toggle kinematic.
+			 placing = NewPlacingStatus;
 
             // If the user is in placing mode, display the spatial mapping mesh.
             if (placing)
             {
+				// Turn of kinematic, to be able to move the wrapper
+				rigidbody.isKinematic = false;
+
                 spatialMappingManager.DrawVisualMeshes = true;
 
                 Debug.Log(gameObject.name + " : Removing existing world anchor if any.");
@@ -121,6 +130,9 @@ namespace HoloToolkit.Unity
             // If the user is not in placing mode, hide the spatial mapping mesh.
             else
             {
+				// Turn on kinematic, to lock the movement of the wrapper
+				rigidbody.isKinematic = true;
+
                 spatialMappingManager.DrawVisualMeshes = false;
                 // Add world anchor when object placement is done.
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
