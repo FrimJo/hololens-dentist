@@ -45,7 +45,7 @@ namespace HoloToolkit.Unity
 
         private void Start()
         {
-			// Get the rigidbody component for use in uppdate function.
+			// Get the rigidbody component for use in SetPlacingStatus function.
 			rigidbody = GetComponent<Rigidbody> ();
 
             // Make sure we have all the components in the scene we need.
