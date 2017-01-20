@@ -25,3 +25,8 @@ ExportedObj/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+/App/
+Assets/MainScene.unity
+
+Assets/MainScene.unity
