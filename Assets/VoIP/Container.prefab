@@ -54,9 +54,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4323256081183328}
   - component: {fileID: 33276680222949120}
-  - component: {fileID: 135396770135871820}
   - component: {fileID: 23032557804865210}
   - component: {fileID: 114636135790343720}
+  - component: {fileID: 136105859955000340}
   m_Layer: 0
   m_Name: CallButton
   m_TagString: Untagged
@@ -105,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 1864545827430328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224921861745130268}
   - {fileID: 4323256081183328}
@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 1639983653781062}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.176, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.1, z: 0.100000046}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.100000046}
   m_Children: []
   m_Father: {fileID: 4183294401958336}
   m_RootOrder: 1
@@ -270,8 +270,8 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!135 &135396770135871820
-SphereCollider:
+--- !u!136 &136105859955000340
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -279,8 +279,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!222 &222487194806971996
 CanvasRenderer:
@@ -357,7 +358,7 @@ RectTransform:
   m_GameObject: {fileID: 1734061240003376}
   m_LocalRotation: {x: -0, y: 0.7071069, z: -0, w: 0.70710677}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.00050000014, y: 0.00049999997, z: 0}
+  m_LocalScale: {x: 0.0004790626, y: 0.0004790626, z: 0}
   m_Children:
   - {fileID: 224767414003631538}
   - {fileID: 224697870441953760}
