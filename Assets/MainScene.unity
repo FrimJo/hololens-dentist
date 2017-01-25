@@ -2138,8 +2138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70899ed35e264b41a16b99610fe2340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuObject: {fileID: 1099256524}
-  IsMovableAtLaunch: 1
+  CollectionToShow: {fileID: 1099256524}
+  TagName: 
+  IsVisibleOnStartup: 1
 --- !u!23 &1413617532
 MeshRenderer:
   m_ObjectHideFlags: 0

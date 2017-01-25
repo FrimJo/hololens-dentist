@@ -1,58 +1,66 @@
-﻿using HoloToolkit.Unity.InputModule;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 using System;
 
-public class MoveMenuScript : MonoBehaviour, IInputClickHandler
+public class MoveMenuScript : MonoBehaviour, IInputClickHandler//, IFocusable
 {
-    [Tooltip("Menuobject that can be moved")]
-    public GameObject MainMenuObject;
-    [Tooltip("If object should be movable at launch")]
-    public bool IsMovableAtLaunch = false;
-    private bool IsMovable;
+    [Tooltip("Menuitem object")]
+    public GameObject CollectionToShow;
+
+    [Tooltip("Menu name tag (Unique)")]
+    public String TagName;
+
+    [Tooltip("Menu name tag (Unique)")]
+    public bool IsVisibleOnStartup = false;
+
+    private bool isVisible;
+    private Material material;
     // Use this for initialization
     void Start()
     {
         
+        isVisible = false;
+        material = GetComponent<Renderer>().material;
+        SetTexture();
+    }
+    private void SetTexture()
+    {
+        //  material.mainTexture = itemTexture;
     }
     // Update is called once per frame
     void Update()
     {
-        if (IsMovableAtLaunch)
+        if (IsVisibleOnStartup)
         {
-            TogglePlacingStatusToItems();
-            IsMovable = IsMovableAtLaunch;
-            IsMovableAtLaunch = false;
+            if (isVisible)
+            {
+                SetMenuAsPlacable();
+                IsVisibleOnStartup = false;
+            }
+            isVisible = IsVisibleOnStartup;
+            
         }
-        
     }
-
     public void OnInputClicked(InputEventData eventData)
     {
-        TogglePlacingStatusToItems();
+        SetMenuAsPlacable();
     }
-
-    private void TogglePlacingStatusToItems()
+    private void SetMenuAsPlacable()
     {
-        IsMovable = !IsMovable;
-
-        print("Trying to set ready to place status on menu");
-        DentistItemScript MenuController = MainMenuObject.GetComponent<DentistItemScript>();
-        //Single placement part
-        MenuController.ChangeStatus(DentistItemScript.Statuses.Placing);
-        //multiple placement part **NOT USED ATM**
-        /*
-        if (IsMovable)
-        {
-            print("Menu will be ready to place");
-            MenuController.ChangeStatus(DentistItemScript.Statuses.Placing);
-        }
-        else
-        {
-            print("Menu will be enabled");
-            MenuController.ChangeStatus(DentistItemScript.Statuses.Enabled);
-        }
-        */
+        //anim.SetBool("isVisible", true);
+        DentistItemScript DIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
+        DIS.ChangeStatus(DentistItemScript.Statuses.Placing);
+        print("Clicked on move menu");
     }
+    /* public void OnFocusEnter()
+     {
+         throw new NotImplementedException();
+     }
+
+     public void OnFocusExit()
+     {
+         throw new NotImplementedException();
+     }*/
 }
