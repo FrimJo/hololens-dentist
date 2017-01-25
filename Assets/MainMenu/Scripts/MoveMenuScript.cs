@@ -6,17 +6,26 @@ using System;
 
 public class MoveMenuScript : MonoBehaviour, IInputClickHandler
 {
-
+    [Tooltip("Menuobject that can be moved")]
     public GameObject MainMenuObject;
+    [Tooltip("If object should be movable at launch")]
+    public bool IsMovableAtLaunch = false;
     private bool IsMovable;
     // Use this for initialization
     void Start()
     {
-        IsMovable = false;
+        
     }
     // Update is called once per frame
     void Update()
     {
+        if (IsMovableAtLaunch)
+        {
+            TogglePlacingStatusToItems();
+            IsMovable = IsMovableAtLaunch;
+            IsMovableAtLaunch = false;
+        }
+        
     }
 
     public void OnInputClicked(InputEventData eventData)
