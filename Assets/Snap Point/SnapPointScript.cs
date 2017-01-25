@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnapPointManager : MonoBehaviour {
+public class SnapPointScript : MonoBehaviour {
 
 	// Public variables for use in side and ouside the script
 	public bool enabled {
@@ -12,7 +12,7 @@ public class SnapPointManager : MonoBehaviour {
 
 		set {
 
-			// Enableds or disables the SnapPoint
+			// Enables or disables the SnapPoint
 			_renderer.enabled = enabled;
 			_collider.enabled = enabled;
 			_enabled = enabled;
@@ -33,7 +33,7 @@ public class SnapPointManager : MonoBehaviour {
 		_collider = GetComponent<SphereCollider> ();
 
 		// Disable the SnapPoint as default
-		enabled = false;
+		//enabled = false;
 	}
 
 	void Update () {}
@@ -41,12 +41,14 @@ public class SnapPointManager : MonoBehaviour {
 	// When a user looks at the SnapPoint stop animation
 	public void OnGazeEnter()
 	{
+		// Stop animation
 		_animator.enabled = false;
 	}
 
 	// When a user stop looks at the SnapPoint start animation
 	public void OnGazeExit()
 	{
+		// Start animation
 		_animator.enabled = true;
 	}
 
