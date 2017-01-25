@@ -104,7 +104,7 @@ public class MenuFormBehaviour : MonoBehaviour {
     */
 
     private void setTextOnFocused()
-    {
+    {/*
         if (eventSystem.currentSelectedGameObject)
         {
             if (eventSystem.currentSelectedGameObject.GetComponent<InputField>())
@@ -114,5 +114,6 @@ public class MenuFormBehaviour : MonoBehaviour {
                 field.text = currentText + ". " + hypText;
             }
         }
+        */
     }
 }
