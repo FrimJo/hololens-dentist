@@ -94,8 +94,8 @@ namespace HoloToolkit.Unity
 					// collider so it sits properly on surfaces.
 					this.transform.position = hitInfo.point;
 
-					// Rotate this object to face away from the wall
-					this.transform.forward = hitInfo.normal;
+					// Rotate this object to face away from the wall (the normal)
+					this.transform.forward = -hitInfo.normal;
 
 					// Rotate this object to face the user.
 					/*Quaternion toQuat = Camera.main.transform.localRotation;
