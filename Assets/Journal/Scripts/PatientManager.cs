@@ -77,7 +77,15 @@ public class PatientManager : MonoBehaviour {
 
     public void CreatePatient()
     {
-        changeCount++;
+        Init();
+        if (changeCount == 0)
+        {
+            patientJournals["Bob"] = new Dictionary<int, Journal>();
+            patientJournals["Bob"][0] = new Journal() { Description = "This is a test to test jurnals" };
+            patientJournals["Bob"][1] = new Journal() { Description = "Second Journal to test with" };
+            changeCount++;
+        }
+        
     }
 
     public int GetChangeCount()
