@@ -44,7 +44,11 @@ public class PatientListManager : MonoBehaviour {
         foreach (string name in names)
         {
             GameObject go = (GameObject)Instantiate(PatientEntryPrefab);
-            go.transform.SetParent(this.transform);
+            //go.transform.SetParent(this.transform);
+            //go.transform.parent = this.transform;
+
+            go.GetComponent<Transform>().parent = this.GetComponent<Transform>();
+
             go.transform.Find("name").GetComponent<Text>().text = name;
             go.transform.Find("count").GetComponent<Text>().text = "size of: " + patientManager.GetJournals(name).Length;
         }
