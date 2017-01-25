@@ -15,13 +15,13 @@ public class MoveMenuScript : MonoBehaviour, IInputClickHandler//, IFocusable
     [Tooltip("Menu name tag (Unique)")]
     public bool IsVisibleOnStartup = false;
 
-    private bool isVisible;
+    private bool isMovable;
     private Material material;
     // Use this for initialization
     void Start()
     {
-        
-        isVisible = false;
+
+        isMovable = false;
         material = GetComponent<Renderer>().material;
         SetTexture();
     }
@@ -34,24 +34,30 @@ public class MoveMenuScript : MonoBehaviour, IInputClickHandler//, IFocusable
     {
         if (IsVisibleOnStartup)
         {
-            if (isVisible)
-            {
-                SetMenuAsPlacable();
-                IsVisibleOnStartup = false;
-            }
-            isVisible = IsVisibleOnStartup;
-            
+            TogglePlacingStatusToItems();
+            IsVisibleOnStartup = false;
         }
     }
     public void OnInputClicked(InputEventData eventData)
     {
-        SetMenuAsPlacable();
+        
+        TogglePlacingStatusToItems();
     }
-    private void SetMenuAsPlacable()
+    private void TogglePlacingStatusToItems()
     {
+        GetComponentInChildren<MenuItemColorManager>().ToggleActivated();
+        isMovable = !isMovable;
         //anim.SetBool("isVisible", true);
         DentistItemScript DIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
-        DIS.ChangeStatus(DentistItemScript.Statuses.Placing);
+        if (isMovable)
+        {
+            DIS.ChangeStatus(DentistItemScript.Statuses.ReadyToPlace);
+        }
+        else
+        {
+            DIS.ChangeStatus(DentistItemScript.Statuses.Enabled);
+        }
+        
         print("Clicked on move menu");
     }
     /* public void OnFocusEnter()

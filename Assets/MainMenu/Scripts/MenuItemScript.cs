@@ -34,11 +34,13 @@ public class MenuItemScript : MonoBehaviour, IInputClickHandler//, IFocusable
 	}
     public void OnInputClicked(InputEventData eventData)
     {
-        
-            
-                if (isVisible)
+
+        MenuItemColorManager CM = GetComponent<MenuItemColorManager>();
+        CM.ToggleActivated();
+        if (isVisible)
                 {
                     //anim.SetBool("isVisible", false);
+                    
                     DentistItemScript DIS = (DentistItemScript)(CollectionToShow.GetComponent<DentistItemScript>());
                     DIS.ChangeStatus(DentistItemScript.Statuses.Disabled);
                 }

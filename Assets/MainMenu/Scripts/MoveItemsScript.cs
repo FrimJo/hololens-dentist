@@ -25,7 +25,7 @@ public class MoveItemsScript : MonoBehaviour, IInputClickHandler
     private void TogglePlacingStatusToItems()
     {
         IsMovable = !IsMovable;
-
+        GetComponentInChildren<MenuItemColorManager>().ToggleActivated(); 
         print("Trying to set ready to place status on all items");
         DentistItemScript[] ItemControllers = AllFeaturesParent.GetComponentsInChildren<DentistItemScript>();
         foreach (DentistItemScript ICtrl in ItemControllers)
