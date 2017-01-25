@@ -39,10 +39,16 @@ namespace HoloToolkit.Unity
         /// <summary>
         /// Keeps track of if the user is moving the object or not.
         /// </summary>
-        private bool placing;
 
+ 
+		private bool placing;
+        
         private void Start()
         {
+			
+
+		
+            
             // Make sure we have all the components in the scene we need.
             anchorManager = WorldAnchorManager.Instance;
             if (anchorManager == null)
@@ -112,6 +118,7 @@ namespace HoloToolkit.Unity
             // If the user is in placing mode, display the spatial mapping mesh.
             if (placing)
             {
+
                 spatialMappingManager.DrawVisualMeshes = true;
 
                 Debug.Log(gameObject.name + " : Removing existing world anchor if any.");
@@ -121,6 +128,7 @@ namespace HoloToolkit.Unity
             // If the user is not in placing mode, hide the spatial mapping mesh.
             else
             {
+
                 spatialMappingManager.DrawVisualMeshes = false;
                 // Add world anchor when object placement is done.
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
