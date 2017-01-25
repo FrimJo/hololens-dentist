@@ -41,15 +41,17 @@ public class SnapPointScript : MonoBehaviour {
 	// When a user looks at the SnapPoint stop animation
 	public void OnGazeEnter()
 	{
-		// Stop animation
-		_animator.enabled = false;
+		// Put animation to starting position and stop
+		//_animator.enabled = false;
+		_animator.SetBool ("isFocus", true);
 	}
 
 	// When a user stop looks at the SnapPoint start animation
 	public void OnGazeExit()
 	{
 		// Start animation
-		_animator.enabled = true;
+		//_animator.enabled = true;
+		_animator.SetBool ("isFocus", false);
 	}
 
 }
