@@ -1569,7 +1569,8 @@ Prefab:
       propertyPath: SavedAnchorFriendlyName
       value: MainMenu
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 54212194645383740, guid: 20fd2aec60ae23547a7046791e794dc4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 20fd2aec60ae23547a7046791e794dc4, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1224997944
