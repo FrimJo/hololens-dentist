@@ -21,11 +21,8 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
     void Start () {
         GameObject go = (GameObject)Instantiate(SpatialPanelPrefab);
         
-        
-
         RectTransform canvasRect = this.GetComponent<RectTransform>();
         Vector2 canvasSize = canvasRect.sizeDelta;
-        print(canvasSize);
         Vector3 canvasPos = this.transform.localPosition;
 
         Vector3 scale = new Vector3(canvasSize.x, canvasSize.y, thickness);
@@ -58,7 +55,6 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     public void OnInputClicked(InputEventData eventData)
     {
-        print("Panel selected");
         windowFocusManager.SetActivePanel(this.transform.gameObject);
     }
 }
