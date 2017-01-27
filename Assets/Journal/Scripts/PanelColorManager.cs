@@ -8,14 +8,14 @@ public class PanelColorManager : MonoBehaviour{
     public Color ActiveColor;
     public Color InactiveColor;
 
-    private bool isActive = false;
+    private bool _isActive = false;
 
     private bool IsActive
     {
-        get { return this.isActive; }
+        get { return this._isActive; }
         set
         {
-            isActive = value;
+            _isActive = value;
             this.GetComponent<MeshRenderer>().material.color = (value ? ActiveColor : InactiveColor);
         }
     }
@@ -23,7 +23,7 @@ public class PanelColorManager : MonoBehaviour{
     // Use this for initialization
     void Start()
     {
-        IsActive = isActive;
+        IsActive = _isActive;
     }
 
     // Update is called once per frame

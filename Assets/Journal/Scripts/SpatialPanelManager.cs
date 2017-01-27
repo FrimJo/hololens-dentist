@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HoloToolkit.Unity.InputModule;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpatialPanelManager : MonoBehaviour {
+public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     private PanelColorManager panelColorManager;
     public WindowFocusManager windowFocusManager;
@@ -36,7 +37,7 @@ public class SpatialPanelManager : MonoBehaviour {
         go.transform.SetParent(this.transform.parent, false);
 
 
-        panelColorManager = SpatialPanelPrefab.GetComponent<PanelColorManager>();
+        panelColorManager = go.GetComponent<PanelColorManager>();
 
     }
 	
@@ -45,19 +46,19 @@ public class SpatialPanelManager : MonoBehaviour {
 		
 	}
 
-    public void Disable()
+    public void FocusOnPanel()
     {
         panelColorManager.Disable();
     }
 
-    public void Enable()
+    public void UnFocusPanel()
     {
         panelColorManager.Enable();
     }
 
-    public void OnSelect()
+    public void OnInputClicked(InputEventData eventData)
     {
         print("Panel selected");
-        windowFocusManager.SetActivePanel(this);
+        windowFocusManager.SetActivePanel(this.transform.gameObject);
     }
 }

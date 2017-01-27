@@ -8,15 +8,23 @@ public class WindowFocusManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        foreach (SpatialPanelManager childSPM in GetComponentsInChildren<SpatialPanelManager>())
-            if (childSPM.GetTagName().Equals("Patients"))
+
+        
+
+        SpatialPanelManager[] panels = GetComponentsInChildren<SpatialPanelManager>();
+
+        for(int i = 0; i < panels.Length; i++)
+        {
+            if (i == 0)
             {
-                childSPM.Enable();
-            }else
-            {
-                childSPM.Disable();
+                panels[i].FocusOnPanel();
+                currentActive = panels[i];
             }
-            
+            else
+            {
+                panels[i].UnFocusPanel();
+            }
+        }   
     }
 	
 	// Update is called once per frame
@@ -24,13 +32,15 @@ public class WindowFocusManager : MonoBehaviour {
 		
 	}
 
-    public void SetActivePanel(SpatialPanelManager panel)
+    public void SetActivePanel(GameObject go)
     {
+        SpatialPanelManager panel = go.GetComponent<SpatialPanelManager>();
+        
         if (currentActive)
         {
-            currentActive.Disable();
+            currentActive.UnFocusPanel();
         }
-        panel.Enable();
+        panel.FocusOnPanel();
         currentActive = panel;
     }
     
