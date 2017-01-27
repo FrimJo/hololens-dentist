@@ -15,8 +15,9 @@ public class PanelColorManager : MonoBehaviour{
         get { return this._isActive; }
         set
         {
+            print("Color is:" + value);
             _isActive = value;
-            this.GetComponent<MeshRenderer>().material.color = (value ? ActiveColor : InactiveColor);
+            this.GetComponent<Renderer>().material.color = (value ? ActiveColor : InactiveColor);
         }
     }
 
@@ -38,7 +39,7 @@ public class PanelColorManager : MonoBehaviour{
     }
     public void Enable()
     {
-        IsActive = false;
+        IsActive = true;
     }
 
 }

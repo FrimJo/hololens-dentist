@@ -8,9 +8,7 @@ public class WindowFocusManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
         
-
         SpatialPanelManager[] panels = GetComponentsInChildren<SpatialPanelManager>();
 
         for(int i = 0; i < panels.Length; i++)

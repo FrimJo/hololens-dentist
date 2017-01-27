@@ -48,12 +48,12 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     public void FocusOnPanel()
     {
-        panelColorManager.Disable();
+        panelColorManager.Enable();
     }
 
     public void UnFocusPanel()
     {
-        panelColorManager.Enable();
+        panelColorManager.Disable();
     }
 
     public void OnInputClicked(InputEventData eventData)
