@@ -6,10 +6,15 @@ using UnityEngine;
 public class SpatialPanelManager : MonoBehaviour {
 
     private PanelColorManager panelColorManager;
-    public GameObject FocusManager;
+    public WindowFocusManager windowFocusManager;
     public GameObject SpatialPanelPrefab;
+    public String PanelTagName = "NoNamePanel";
     public int thickness = 50;
-    private GameObject SpatialPanel;
+
+    internal String GetTagName()
+    {
+        return PanelTagName;
+    }
 
     // Use this for initialization
     void Start () {
@@ -30,7 +35,6 @@ public class SpatialPanelManager : MonoBehaviour {
         go.transform.position = new Vector3(canvasPos.x, canvasPos.y, zPos);
         go.transform.SetParent(this.transform.parent, false);
 
-        SpatialPanel = go;
 
         panelColorManager = SpatialPanelPrefab.GetComponent<PanelColorManager>();
 
@@ -43,16 +47,17 @@ public class SpatialPanelManager : MonoBehaviour {
 
     public void Disable()
     {
-        panelColorManager.IsActive = false;
+        panelColorManager.Disable();
     }
 
-    public void Activate()
+    public void Enable()
     {
-        panelColorManager.IsActive = true;
+        panelColorManager.Enable();
     }
 
     public void OnSelect()
     {
-        SpatialPanel.SetActive(SpatialPanel);
+        print("Panel selected");
+        windowFocusManager.SetActivePanel(this);
     }
 }

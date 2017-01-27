@@ -8,8 +8,15 @@ public class WindowFocusManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        foreach (Transform child in transform)
-            child.GetComponent<SpatialPanelManager>().Disable();
+        foreach (SpatialPanelManager childSPM in GetComponentsInChildren<SpatialPanelManager>())
+            if (childSPM.GetTagName().Equals("Patients"))
+            {
+                childSPM.Enable();
+            }else
+            {
+                childSPM.Disable();
+            }
+            
     }
 	
 	// Update is called once per frame
@@ -17,13 +24,14 @@ public class WindowFocusManager : MonoBehaviour {
 		
 	}
 
-    public void SetActive(SpatialPanelManager panel)
+    public void SetActivePanel(SpatialPanelManager panel)
     {
         if (currentActive)
         {
             currentActive.Disable();
         }
-        panel.Activate();
+        panel.Enable();
+        currentActive = panel;
     }
     
 }

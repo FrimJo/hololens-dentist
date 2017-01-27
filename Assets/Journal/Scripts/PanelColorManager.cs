@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelColorManager : MonoBehaviour {
+public class PanelColorManager : MonoBehaviour{
 
     // Use this for initialization
     public Color ActiveColor;
     public Color InactiveColor;
 
-    private bool isActive = true;
+    private bool isActive = false;
 
-    public bool IsActive
+    private bool IsActive
     {
         get { return this.isActive; }
         set
@@ -32,8 +32,13 @@ public class PanelColorManager : MonoBehaviour {
 
     }
 
-    public void Toggle()
+    public void Disable()
     {
-        IsActive = !isActive;
+        IsActive = false;
     }
+    public void Enable()
+    {
+        IsActive = false;
+    }
+
 }
