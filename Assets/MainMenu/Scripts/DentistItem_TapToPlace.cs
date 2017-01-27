@@ -81,7 +81,7 @@ namespace HoloToolkit.Unity
 				// Do a raycast into the world that will only hit the Spatial Mapping mesh.
 				var headPosition = Camera.main.transform.position;
 				var gazeDirection = Camera.main.transform.forward;
-				print ("placing");
+				
 				RaycastHit hitInfo;
 				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
 					    30.0f, spatialMappingManager.LayerMask)) {
