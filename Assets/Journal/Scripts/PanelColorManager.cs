@@ -15,7 +15,6 @@ public class PanelColorManager : MonoBehaviour{
         get { return this._isActive; }
         set
         {
-            print("Color is:" + value);
             _isActive = value;
             this.GetComponent<Renderer>().material.color = (value ? ActiveColor : InactiveColor);
         }

@@ -7,6 +7,8 @@ public class PatientListManager : MonoBehaviour {
 
     public GameObject PatientEntryPrefab;
 
+    public GameObject WindowToShow;
+
     PatientManager patientManager;
 
     int lastChangeCount;
@@ -47,6 +49,14 @@ public class PatientListManager : MonoBehaviour {
             go.transform.SetParent(this.transform, false);
             go.transform.Find("name").GetComponent<Text>().text = name;
             go.transform.Find("count").GetComponent<Text>().text = "size of: " + patientManager.GetJournals(name).Length;
+        }
+    }
+
+    public void CreatePatient()
+    {
+        if (WindowToShow)
+        {
+            WindowToShow.SetActive(true);
         }
     }
 }
