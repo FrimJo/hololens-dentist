@@ -55,6 +55,6 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     public void OnInputClicked(InputEventData eventData)
     {
-        windowFocusManager.SetActivePanel(this.transform.gameObject);
+        windowFocusManager.SetActivePanel(this.transform.parent.GetComponent<WindowBehaivour>());
     }
 }

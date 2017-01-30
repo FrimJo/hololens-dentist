@@ -90,6 +90,18 @@ public class PatientManager : MonoBehaviour {
 
     }
 
+    public bool CreatePatient(string name)
+    {
+        Init();
+        if (!patientJournals.ContainsKey(name))
+        {
+            patientJournals[name] = new Dictionary<int, Journal>();
+            changeCount++;
+            return true;
+        }
+        return false;
+    }
+
     public int GetChangeCount()
     {
         return changeCount;

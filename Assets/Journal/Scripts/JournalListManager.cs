@@ -5,20 +5,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PatientListManager : MonoBehaviour {
+public class JournalListManager : MonoBehaviour
+{
 
     public GameObject PatientEntryPrefab;
 
-    //public WindowBehaivour WindowToShow;
-
     public WindowFocusManager windowManager;
+
+    public WindowBehaivour thisWindow;
 
     PatientManager patientManager;
 
     int lastChangeCount;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         patientManager = GameObject.FindObjectOfType<PatientManager>();
 
@@ -26,10 +28,21 @@ public class PatientListManager : MonoBehaviour {
             Debug.LogError("You forgot to add PatientManager to game");
 
         lastChangeCount = patientManager.GetChangeCount();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        thisWindow.dataChangedEvent += dataChanged;
+    }
+
+    private void dataChanged(object data)
+    {
+        if (data is string)
+        {
+            print("journal for name: " + data);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (patientManager == null)
             Debug.LogError("You forgot to add PatientManager to game");
 
@@ -67,15 +80,13 @@ public class PatientListManager : MonoBehaviour {
     {
         try
         {
-            Transform t = eventData.selectedObject.transform;
-            Text[] texts = t.GetComponentsInChildren<Text>();
-            print(texts[0].text);
-            windowManager.ShowWindowName("Journals", texts[0].text);
+            string name = eventData.selectedObject.transform.Find("name").GetComponent<Text>().text;
+            windowManager.ShowWindowName("Journals", name);
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             // pallar inte felsöka
         }
     }
-    
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FocusDictationInput : MonoBehaviour {
 
@@ -26,6 +27,7 @@ public class FocusDictationInput : MonoBehaviour {
         if (dictationManager)
         {
             dictationManager.SetDictationListener(this, new DictaionEventHandler(DictaitonChanged));
+            GetComponent<InputField>().text = "Erik";
         }
     }
 }
