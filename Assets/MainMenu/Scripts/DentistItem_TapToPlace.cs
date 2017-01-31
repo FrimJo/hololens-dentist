@@ -86,16 +86,24 @@ namespace HoloToolkit.Unity
 				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
 					    30.0f, spatialMappingManager.LayerMask)) {
 
-					// Move this object to where the raycast
-					// hit the Spatial Mapping mesh.
-					// Here is where you might consider adding intelligence
-					// to how the object is placed.  For example, consider
-					// placing based on the bottom of the object's
-					// collider so it sits properly on surfaces.
-					this.transform.position = hitInfo.point;
-
 					// Rotate this object to face away from the wall (the normal)
 					this.transform.forward = -hitInfo.normal;
+
+					// Get half the size of the object
+					float halfDepth = this.transform.lossyScale.z / 2.0f;
+
+					// Get the normal of the hit object
+					Vector3 norm = hitInfo.normal;
+
+					// Remove the y-axis
+					norm.y = 0.0f;
+
+					// Renormalize again
+					norm.normalized;
+
+					// Move this object to where the raycast
+					// hit the Spatial Mapping mesh.
+					this.transform.position = hitInfo.point + (norm * halfDepth);
 
 					// Rotate this object to face the user.
 					/*Quaternion toQuat = Camera.main.transform.localRotation;
@@ -104,9 +112,10 @@ namespace HoloToolkit.Unity
 					this.transform.rotation = toQuat;*/
 				}
 
-				var layer  = 8;
-				var layermask = 1 << layer;
+				var snapPointLayer = 8;
+				var layermask = 1 << snapPointLayer;
 
+				// If reycast hit snap-point
 				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
 					30.0f, layermask)) {
 
