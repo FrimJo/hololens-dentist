@@ -27,7 +27,7 @@ public class JournalListManager : MonoBehaviour
 
         lastChangeCount = patientManager.GetChangeCount();
 
-        thisWindow.dataChangedEvent += dataChanged;
+        //thisWindow.dataChangedEvent += dataChanged;
     }
 
     private void dataChanged(object data)

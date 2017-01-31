@@ -86,7 +86,10 @@ public class WindowFocusManager : MonoBehaviour {
     {
         foreach (WindowBehaivour p in panels)
         {
-            p.Unfocus();
+            if (p != null)
+            {
+                p.Unfocus();
+            }
         }
     }
 
