@@ -12,8 +12,6 @@ public class JournalListManager : MonoBehaviour
 
     public WindowFocusManager windowManager;
 
-    public WindowBehaivour thisWindow;
-
     PatientManager patientManager;
 
     int lastChangeCount;

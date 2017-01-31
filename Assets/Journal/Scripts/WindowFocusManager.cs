@@ -68,18 +68,27 @@ public class WindowFocusManager : MonoBehaviour {
     public void ShowWindow(WindowBehaivour window)
     {
         window.Show();
+        UnFocusAll();
         window.Focus();
         currentActive = window;
+        
     }
 
     public void ShowWindow(WindowBehaivour window, object data)
     {
-        print("showing with data: "+data);
         window.Show(data);
+        window.Focus();
         window.Focus();
         currentActive = window;
     }
 
+    public void UnFocusAll()
+    {
+        foreach (WindowBehaivour p in panels)
+        {
+            p.Unfocus();
+        }
+    }
 
     private WindowBehaivour GetWindowWithName(string name)
     {
