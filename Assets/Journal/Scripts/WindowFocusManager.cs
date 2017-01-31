@@ -77,7 +77,7 @@ public class WindowFocusManager : MonoBehaviour {
     public void ShowWindow(WindowBehaivour window, object data)
     {
         window.Show(data);
-        window.Focus();
+        UnFocusAll();
         window.Focus();
         currentActive = window;
     }
