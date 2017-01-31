@@ -17,18 +17,18 @@ public class InputFieldOffert : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (EventSystemObject)
-        {
-            eventSystem = EventSystemObject.GetComponent<EventSystem>();
-            if (eventSystem)
-            {
-                EventTrigger trigger = this.GetComponent<EventTrigger>();
-                EventTrigger.Entry entry = new EventTrigger.Entry();
-                entry.eventID = EventTriggerType.PointerClick;
-                entry.callback.AddListener((data) => { OnPointerDownDelegate((PointerEventData)data); });
-                trigger.triggers.Add(entry);
-            }
-        }
+        //if (EventSystemObject)
+        //{
+        //    eventSystem = EventSystemObject.GetComponent<EventSystem>();
+        //    if (eventSystem)
+        //    {
+        //        EventTrigger trigger = this.GetComponent<EventTrigger>();
+        //        EventTrigger.Entry entry = new EventTrigger.Entry();
+        //        entry.eventID = EventTriggerType.PointerClick;
+        //        entry.callback.AddListener((data) => { OnPointerDownDelegate((PointerEventData)data); });
+        //        trigger.triggers.Add(entry);
+        //    }
+        //}
 
         if (ContainerCanvas)
         {

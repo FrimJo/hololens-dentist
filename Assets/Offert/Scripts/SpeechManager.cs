@@ -11,19 +11,37 @@ public class SpeechManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        keywords.Add("Journal", () =>
+        print("Nu är vi igång!!");
+
+
+        keywords.Add("Price", () =>
         {
             // Call the OnReset method on every descendant object.
-            this.BroadcastMessage("OnJournal");
-
-            keywords.Add("test", () =>
-            {
-                // Call the OnReset method on every descendant object.
-                this.BroadcastMessage("OnTest");
-            });
-
+            print("price added");
+            this.BroadcastMessage("OnPrice");
         });
 
+        keywords.Add("six hundred", () =>
+        {
+            // Call the OnReset method on every descendant object.
+            print("600 added");
+            this.BroadcastMessage("OnSix");
+        });
+
+        //keywords.Add("Journal", () =>
+        //{
+        //    // Call the OnReset method on every descendant object.
+        //    this.BroadcastMessage("OnJournal");
+
+        //    keywords.Add("test", () =>
+        //    {
+        //        // Call the OnReset method on every descendant object.
+        //        this.BroadcastMessage("OnTest");
+        //    });
+
+        //});
+
+        //Denna används kanske inte
         keywords.Add("Offert", () =>
         {
             // Call the OnReset method on every descendant object.
@@ -40,17 +58,35 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Action", () =>
         {
             // Call the OnReset method on every descendant object.
-                this.BroadcastMessage("OnAction");
-            });
+            print("action added");
+            this.BroadcastMessage("OnAction");
+        });
 
-            keywords.Add("Price", () =>
-            {
-                // Call the OnReset method on every descendant object.
-                this.BroadcastMessage("OnPrice");
-            });
+        keywords.Add("Caries", () =>
+        {
+            // Call the OnReset method on every descendant object.
+            print("caries added");
+            this.BroadcastMessage("OnCaries");
+        });
+
+        keywords.Add("Mark Wilson", () =>
+        {
+            // Call the OnReset method on every descendant object.
+            print("mark added");
+            this.BroadcastMessage("OnMark");
+        });
+
+
+        // Tell the KeywordRecognizer about our keywords.
+        keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
+
+        // Register a callback for the KeywordRecognizer and start recognizing!
+        keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
+        keywordRecognizer.Start();
+        print("keywordrecognizer started");
     }
 
-        private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
+    private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         System.Action keywordAction;
         if (keywords.TryGetValue(args.text, out keywordAction))

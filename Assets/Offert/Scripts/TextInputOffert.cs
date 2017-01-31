@@ -17,11 +17,67 @@ public class TextInputOffert : MonoBehaviour
 
     private String currentText;
     private String hypText;
-    public String totPrice;
-    private Boolean price;
+    private String totPrice;
+    public Text number;
+    public Boolean isPrice;
 
     // Use this for initialization
     void Start()
+    {
+        print("textinputf offert start");
+        isPrice = false;
+        print("isprice setted to false");
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        setTextOnFocused();
+        //print("update textinputoffert");
+    }
+
+    private void DictationRecognizer_DictationHypothesis(string text)
+    {
+        if(text.Equals("stop"))
+        {
+            print("dictation stop");
+            dictationRecognizer.Stop();
+            isPrice = false;
+            PhraseRecognitionSystem.Restart();
+            print("keyword restared");
+        }
+        else if(isPrice)
+        {
+            print("dicattion isprice");
+            int sumVal = Int32.Parse(totPrice);
+            int numVal = Int32.Parse(text);
+            sumVal += numVal;
+            totPrice = Convert.ToString(sumVal);
+
+            //number = GetComponent<Text>();
+            number.GetComponent<Text>().text = totPrice;
+
+            print(text);
+            hypText = text;
+            isPrice = false;
+            print("dictation texted in price");
+        }
+        else {
+            print(text);
+            hypText = text;
+            print("dictation texted");
+        }
+        
+    }
+
+    private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
+    {
+        print(text);
+        currentText = currentText + "\n " + text;
+    }
+
+    public void startDictation()
     {
         dictationRecognizer = new DictationRecognizer();
         dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
@@ -31,39 +87,6 @@ public class TextInputOffert : MonoBehaviour
         {
             eventSystem = EventSystemObject.GetComponent<EventSystem>();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        setTextOnFocused();
-    }
-
-    private void DictationRecognizer_DictationHypothesis(string text)
-    {
-        if(text.Equals("stop"))
-        {
-            dictationRecognizer.Stop();
-            PhraseRecognitionSystem.Restart();
-        }
-        else if(price)
-        {
-            int sumVal = Int32.Parse(totPrice);
-            int numVal = Int32.Parse(text);
-            sumVal += numVal;
-            totPrice = Convert.ToString(sumVal);
-        }
-        else {
-            print(text);
-            hypText = text;
-        }
-        
-    }
-
-    private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
-    {
-        print(text);
-        currentText = currentText + "\n " + text;
     }
 
     public void SetSelectedInputField(InputField field)
