@@ -42,7 +42,7 @@ public class SphereCommands : MonoBehaviour
     void OnMark()
     {
         print("onmark");
-        patientField.text = "Mark Willson";
+        patientField.text = "David Bergvik";
     }
 
     void OnAction()
@@ -57,7 +57,7 @@ public class SphereCommands : MonoBehaviour
     void OnCaries()
     {
         print("oncaries");
-        actionField.text = "Caries";
+        actionField.text = "Crown";
     }
 
     void OnPrice()
@@ -73,8 +73,8 @@ public class SphereCommands : MonoBehaviour
     void OnSix()
     {
         print("onfour");
-        priceField.text = "600";
-        number.text = "600";
+        priceField.text = "7000";
+        number.text = "7000";
         
     }
 

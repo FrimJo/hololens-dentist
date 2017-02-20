@@ -21,10 +21,10 @@ public class SpeechManager : MonoBehaviour
             this.BroadcastMessage("OnPrice");
         });
 
-        keywords.Add("six hundred", () =>
+        keywords.Add("seven thousand", () =>
         {
             // Call the OnReset method on every descendant object.
-            print("600 added");
+            print("7 th added");
             this.BroadcastMessage("OnSix");
         });
 
@@ -62,14 +62,14 @@ public class SpeechManager : MonoBehaviour
             this.BroadcastMessage("OnAction");
         });
 
-        keywords.Add("Caries", () =>
+        keywords.Add("Crown", () =>
         {
             // Call the OnReset method on every descendant object.
             print("caries added");
             this.BroadcastMessage("OnCaries");
         });
 
-        keywords.Add("Mark Wilson", () =>
+        keywords.Add("David Bergvik", () =>
         {
             // Call the OnReset method on every descendant object.
             print("mark added");
