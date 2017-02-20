@@ -99,7 +99,7 @@ namespace HoloToolkit.Unity
 					norm.y = 0.0f;
 
 					// Renormalize again
-					norm.normalized;
+					norm.Normalize();
 
 					// Move this object to where the raycast
 					// hit the Spatial Mapping mesh.
