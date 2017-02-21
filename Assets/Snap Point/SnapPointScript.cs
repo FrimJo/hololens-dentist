@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 
-public class SnapPointScript : MonoBehaviour {
+public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
 	// Public variables for use in side and ouside the script
 	public bool enabled {
@@ -24,6 +25,7 @@ public class SnapPointScript : MonoBehaviour {
 	private Animator _animator;
 	private Renderer _renderer;
 	private SphereCollider _collider;
+	private DentistItemScript _parentScript;
 
 	void Start () {
 
@@ -31,6 +33,7 @@ public class SnapPointScript : MonoBehaviour {
 		_animator = GetComponent<Animator> ();
 		_renderer = GetComponent<Renderer> ();
 		_collider = GetComponent<SphereCollider> ();
+		_parentScript = GetComponentInParent<DentistItemScript> ();
 
 		// Disable the SnapPoint as default
 		//enabled = false;
@@ -52,6 +55,17 @@ public class SnapPointScript : MonoBehaviour {
 		// Start animation
 		//_animator.enabled = true;
 		_animator.SetBool ("isFocus", false);
+	}
+
+	public void OnInputClicked(InputEventData eventData)
+	{	
+		// If we foud a script on parent and it is not already ReadyToPlace
+		if (_parentScript != null && !_parentScript.GetStatus().Equals(DentistItemScript.Statuses.Placing)) {
+
+			// Set it to ReadyToPlace
+			_parentScript.ChangeStatus (DentistItemScript.Statuses.Placing);
+		}	
+
 	}
 
 }
