@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 95605689748214286}
   - component: {fileID: 114236313517564282}
   - component: {fileID: 114758705750520306}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33913009982161906
 MeshFilter:

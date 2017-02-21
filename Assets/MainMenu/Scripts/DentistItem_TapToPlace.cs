@@ -25,8 +25,6 @@ namespace HoloToolkit.Unity
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
         public string SavedAnchorFriendlyName = "movableCube";
 
-		[Tooltip("The prefab to use as marker for placing wraper on the floor")]
-		public Transform floorMarkerPrefab;
         /// <summary>
         /// Manages persisted anchors.
         /// </summary>
@@ -43,26 +41,9 @@ namespace HoloToolkit.Unity
         /// </summary>
 		private bool placing;
 
-		private Transform floorMarker;
-
-
-
         private void Start()
         {
 
-			/* Create, disable and add the floorMarker prefab as child */
-
-			// Create
-			floorMarker = Instantiate<Transform> (floorMarkerPrefab);
-
-			// Disable
-			floorMarker.gameObject.SetActive (false);
-
-			// Set up direction
-			floorMarker.up = Vector3.up;
-
-			// Add as child
-			floorMarker.parent = this.transform;
 
             // Make sure we have all the components in the scene we need.
             anchorManager = WorldAnchorManager.Instance;
@@ -96,94 +77,79 @@ namespace HoloToolkit.Unity
             // If the user is in placing mode,
             // update the placement to match the user's gaze.
 			if (placing) {
-				// Do a raycast into the world that will only hit the Spatial Mapping mesh.
-				var headPosition = Camera.main.transform.position;
-				var gazeDirection = Camera.main.transform.forward;
 				
-				RaycastHit hitInfo;
-				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
-					    30.0f, spatialMappingManager.LayerMask)) {
+		
+                SnapPointScript[] snapPoints = GetComponentsInChildren<SnapPointScript>();
+                MainMenuScript[] mainMenu = GetComponentsInChildren<MainMenuScript>();
 
-					// Determin if the gaze hit wall or, floor or sealing
-					float prod = Math.Abs (Vector3.Dot (hitInfo.normal, Vector3.up));
+                // If we don't have any snappoints
+                if (snapPoints.Length == 0 && mainMenu.Length == 0) {
 
-					// The product is less then 0.5 then we're gazing at a wall
-					// else floor or sealing
-					if (prod < 0.5f) {
+                    // Do a raycast into the world that will only hit the Spatial Mapping mesh.
+                    var headPosition = Camera.main.transform.position;
+                    var gazeDirection = Camera.main.transform.forward;
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(headPosition, gazeDirection, out hitInfo,
+                            30.0f, spatialMappingManager.LayerMask))
+                    {
 
-						// If marker is active
-						if (floorMarker.gameObject.activeSelf) {
-							
-							// Inactivate the marker
-							floorMarker.gameObject.SetActive (false);
-						}
-							
-						// Rotate this object to face away from the wall (the normal)
-						this.transform.forward = -hitInfo.normal;
+                        // Rotate this object to face away from the wall (the normal)
+                        this.transform.forward = -hitInfo.normal;
 
-						// Get half the size of the object
-						float halfDepth = this.transform.lossyScale.z / 2.0f;
+                        // Get half the size of the object
+                        float halfDepth = this.transform.lossyScale.z / 2.0f;
 
-						// Get the normal of the hit object
-						Vector3 norm = hitInfo.normal;
+                        // Get the normal of the hit object
+                        Vector3 norm = hitInfo.normal;
 
-						// Remove the y-axis
-						norm.y = 0.0f;
+                        // Remove the y-axis
+                        norm.y = 0.0f;
 
-						// Renormalize again
-						norm.Normalize();
+                        // Renormalize again
+                        norm.Normalize();
 
-						// Move this object to where the raycast
-						// hit the Spatial Mapping mesh.
-						this.transform.position = hitInfo.point + (norm * halfDepth);
+                        // Move this object to where the raycast
+                        // hit the Spatial Mapping mesh.
+                        this.transform.position = hitInfo.point + (norm * halfDepth);
+                    }
 
-					} else {
-						
-						// Rotate this object to face the camera as
-						// if the camera were at the same y-position as the object.
-						Vector3 cameraPos = Camera.main.transform.position;
-						cameraPos.y = transform.position.y;
-						this.transform.LookAt(cameraPos);
+                    var snapPointLayer = 8;
+                    var layermask = 1 << snapPointLayer;
 
-						// Move the object 1m up
-						this.transform.position = hitInfo.point + Vector3.up;
+                    // If reycast hit snap-point
+                    if (Physics.Raycast(headPosition, gazeDirection, out hitInfo,
+                        30.0f, layermask))
+                    {
 
-						// If marker is inactive
-						if (!floorMarker.gameObject.activeSelf) {
+                        // Get the hitt transforms position
+                        this.transform.position = hitInfo.transform.position;
 
-							// Activate the marker
-							floorMarker.gameObject.SetActive (true);
-						}
+                        // Rotate this object to face the user.
+                        Quaternion toQuat = Camera.main.transform.localRotation;
+                        toQuat.x = 0;
+                        toQuat.z = 0;
+                        this.transform.rotation = toQuat;
+                    }
 
-						// Set marker position to gaze position
-						floorMarker.position = hitInfo.point;
+                } 
 
-					}
-						
-				}
+                // If we have snappoints in the wraper, use this placement
+                else
+                {
+                    // Get the position of the camera
+                    Vector3 cameraPos = Camera.main.transform.position;
 
-				var snapPointLayer = 8;
-				var layermask = 1 << snapPointLayer;
+                    // Move the object 2m in front of the camera
+                    this.transform.position = cameraPos + Camera.main.transform.forward.normalized * 2.0f;
 
-				// If reycast hit snap-point
-				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
-					30.0f, layermask)) {
+                    // Rotate this object to face the camera as
+                    // if the camera were at the same y-position as the object.
+                    cameraPos.y = transform.position.y;
+                    this.transform.LookAt(cameraPos);
+                }
 
-					// Get the hitt transforms position
-					this.transform.position = hitInfo.transform.position;
-
-					// Rotate this object to face the user.
-					Quaternion toQuat = Camera.main.transform.localRotation;
-					toQuat.x = 0;
-					toQuat.z = 0;
-					this.transform.rotation = toQuat;
-				}
 			}
         }
-
-		public void HideFloorMarker(){
-			floorMarker.gameObject.SetActive (false);
-		}
 
         /* public void OnInputClicked(InputEventData eventData)
          {

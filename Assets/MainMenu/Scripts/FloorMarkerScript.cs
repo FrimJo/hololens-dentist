@@ -15,7 +15,6 @@ public class FloorMarkerScript : MonoBehaviour, IInputClickHandler {
 	// On click
 	public void OnInputClicked(InputEventData eventData)
 	{
-		if(_parentScript)
-			_parentScript.HideFloorMarker ();
+			
 	}
 }

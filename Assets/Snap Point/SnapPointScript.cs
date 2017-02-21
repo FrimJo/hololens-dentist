@@ -62,12 +62,16 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	}
 
 	public void OnInputClicked(InputEventData eventData)
-	{	
+	{
+        print("SnapPointScript: OnInputClicked");
+
 		// If we foud a script on parent and it is not already ReadyToPlace
 		if (_parentScript != null && !_parentScript.GetStatus().Equals(DentistItemScript.Statuses.Placing)) {
 
-			// Set it to ReadyToPlace
-			_parentScript.ChangeStatus (DentistItemScript.Statuses.Placing);
+            print("SnapPointScript: OnInputClicked: status not placing");
+
+            // Set it to ReadyToPlace
+            _parentScript.ChangeStatus (DentistItemScript.Statuses.Placing);
 		}	
 
 	}

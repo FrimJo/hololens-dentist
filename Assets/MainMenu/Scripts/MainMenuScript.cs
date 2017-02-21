@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class MainMenuScript : MonoBehaviour {
 
-	void Start () {
+    DentistItemScript _parentScript;
 
-		// Set status to unlocked
-		DentistItemScript _parentScript = GetComponentInParent<DentistItemScript> ();
+    private bool lockedAfterStartUp = false;
 
-		// If parent has script
-		if (_parentScript) {
+    void Start () {
 
-			// Set status to placing
-			_parentScript.ChangeStatus (DentistItemScript.Statuses.Placing);
-		}
+        // Set status to unlocked
+        _parentScript = GetComponentInParent<DentistItemScript> ();
 
 	}
+
+    private void Update()
+    {
+        // If parent has script and has not been locked after startup
+        if (_parentScript != null && !lockedAfterStartUp)
+        {
+
+            print("placing menu");
+            // Set status to placing
+            _parentScript.ChangeStatus(DentistItemScript.Statuses.Placing);
+            lockedAfterStartUp = true;
+        }
+    }
 
 }
