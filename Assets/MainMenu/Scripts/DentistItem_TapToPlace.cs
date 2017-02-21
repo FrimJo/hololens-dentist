@@ -87,16 +87,23 @@ namespace HoloToolkit.Unity
 					    30.0f, spatialMappingManager.LayerMask)) {
 
 					// Determin if the gaze hit wall or, floor or sealing
+					float prod = Math.Abs (Vector3.Dot (hitInfo.normal, Vector3.up));
 
-					// Rotate this object to face away from the wall (the normal)
-					this.transform.forward = -hitInfo.normal;
+					// The product is bigger then 0.5 then we're gazing at a wall
+					// else floor or sealing
+					if (prod > 0.5f) {
+						
+						// Rotate this object to face away from the wall (the normal)
+						this.transform.forward = -hitInfo.normal;
 
-					// Rotate this object to face the camera as
-					// if the camera were at the same y-position as the object.
-					Vector3 cameraPos = Camera.main.transform.position;
-					cameraPos.y = transform.position.y;
-
-					this.transform.LookAt(cameraPos);
+					} else {
+						
+						// Rotate this object to face the camera as
+						// if the camera were at the same y-position as the object.
+						Vector3 cameraPos = Camera.main.transform.position;
+						cameraPos.y = transform.position.y;
+						this.transform.LookAt(cameraPos);
+					}
 
 					// Get half the size of the object
 					float halfDepth = this.transform.lossyScale.z / 2.0f;
