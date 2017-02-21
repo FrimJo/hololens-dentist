@@ -89,9 +89,9 @@ namespace HoloToolkit.Unity
 					// Determin if the gaze hit wall or, floor or sealing
 					float prod = Math.Abs (Vector3.Dot (hitInfo.normal, Vector3.up));
 
-					// The product is bigger then 0.5 then we're gazing at a wall
+					// The product is less then 0.5 then we're gazing at a wall
 					// else floor or sealing
-					if (prod > 0.5f) {
+					if (prod < 0.5f) {
 						
 						// Rotate this object to face away from the wall (the normal)
 						this.transform.forward = -hitInfo.normal;
@@ -154,7 +154,8 @@ namespace HoloToolkit.Unity
          */
         public void SetPlacingStatus(bool NewPlacingStatus)
         {
-				
+			print ("DentistItem_TapToPlace: SetPlacingStatus");
+			print (NewPlacingStatus);
             // On each tap gesture, toggle whether the user is in placing mode, and toggle kinematic.
 			 placing = NewPlacingStatus;
 
@@ -185,6 +186,7 @@ namespace HoloToolkit.Unity
         }
         public void TogglePlacingStatus()
         {
+			print ("DentistItem_TapToPlace: TogglePlacingStatus");
             SetPlacingStatus(!placing);
         }
     }
