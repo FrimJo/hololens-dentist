@@ -96,6 +96,22 @@ namespace HoloToolkit.Unity
 						// Rotate this object to face away from the wall (the normal)
 						this.transform.forward = -hitInfo.normal;
 
+						// Get half the size of the object
+						float halfDepth = this.transform.lossyScale.z / 2.0f;
+
+						// Get the normal of the hit object
+						Vector3 norm = hitInfo.normal;
+
+						// Remove the y-axis
+						norm.y = 0.0f;
+
+						// Renormalize again
+						norm.Normalize();
+
+						// Move this object to where the raycast
+						// hit the Spatial Mapping mesh.
+						this.transform.position = hitInfo.point + (norm * halfDepth);
+
 					} else {
 						
 						// Rotate this object to face the camera as
@@ -103,29 +119,11 @@ namespace HoloToolkit.Unity
 						Vector3 cameraPos = Camera.main.transform.position;
 						cameraPos.y = transform.position.y;
 						this.transform.LookAt(cameraPos);
+
+						// Move the object 1m up
+						this.transform.position = hitInfo.point + Vector3.up*1.0f;
 					}
-
-					// Get half the size of the object
-					float halfDepth = this.transform.lossyScale.z / 2.0f;
-
-					// Get the normal of the hit object
-					Vector3 norm = hitInfo.normal;
-
-					// Remove the y-axis
-					norm.y = 0.0f;
-
-					// Renormalize again
-					norm.Normalize();
-
-					// Move this object to where the raycast
-					// hit the Spatial Mapping mesh.
-					this.transform.position = hitInfo.point + (norm * halfDepth);
-
-					// Rotate this object to face the user.
-					/*Quaternion toQuat = Camera.main.transform.localRotation;
-					toQuat.x = 0;
-					toQuat.z = 0;
-					this.transform.rotation = toQuat;*/
+						
 				}
 
 				var snapPointLayer = 8;
