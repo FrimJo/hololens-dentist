@@ -27,10 +27,14 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	private SphereCollider _collider;
 	private DentistItemScript _parentScript;
 
+	void Awake() {
+		_animator = GetComponent<Animator> ();
+	}
+
 	void Start () {
 
 		// Get the components used in the script
-		_animator = GetComponent<Animator> ();
+
 		_renderer = GetComponent<Renderer> ();
 		_collider = GetComponent<SphereCollider> ();
 		_parentScript = GetComponentInParent<DentistItemScript> ();
