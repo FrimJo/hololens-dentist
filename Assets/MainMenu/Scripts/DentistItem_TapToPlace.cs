@@ -86,8 +86,17 @@ namespace HoloToolkit.Unity
 				if (Physics.Raycast (headPosition, gazeDirection, out hitInfo,
 					    30.0f, spatialMappingManager.LayerMask)) {
 
+					// Determin if the gaze hit wall or, floor or sealing
+
 					// Rotate this object to face away from the wall (the normal)
 					this.transform.forward = -hitInfo.normal;
+
+					// Rotate this object to face the camera as
+					// if the camera were at the same y-position as the object.
+					Vector3 cameraPos = Camera.main.transform.position;
+					cameraPos.y = transform.position.y;
+
+					this.transform.LookAt(cameraPos);
 
 					// Get half the size of the object
 					float halfDepth = this.transform.lossyScale.z / 2.0f;
