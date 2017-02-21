@@ -21,7 +21,7 @@ public class MoveMenuScript : MonoBehaviour, IInputClickHandler//, IFocusable
     void Start()
     {
 
-        isMovable = false;
+        isMovable = true;
         material = GetComponent<Renderer>().material;
         SetTexture();
     }
