@@ -25,6 +25,8 @@ namespace HoloToolkit.Unity
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
         public string SavedAnchorFriendlyName = "movableCube";
 
+		[Tooltip("The prefab to use as marker for placing wraper on the floor")]
+		public Transform floorMarkerPrefab;
         /// <summary>
         /// Manages persisted anchors.
         /// </summary>
@@ -41,11 +43,27 @@ namespace HoloToolkit.Unity
         /// </summary>
 		private bool placing;
 
+		private Transform floorMarker;
+
 
 
         private void Start()
         {
-			
+
+			/* Create, disable and add the floorMarker prefab as child */
+
+			// Create
+			floorMarker = Instantiate<Transform> (floorMarkerPrefab);
+
+			// Disable
+			floorMarker.gameObject.SetActive (false);
+
+			// Set up direction
+			floorMarker.up = Vector3.up;
+
+			// Add as child
+			floorMarker.parent = this.transform;
+
             // Make sure we have all the components in the scene we need.
             anchorManager = WorldAnchorManager.Instance;
             if (anchorManager == null)
@@ -92,7 +110,14 @@ namespace HoloToolkit.Unity
 					// The product is less then 0.5 then we're gazing at a wall
 					// else floor or sealing
 					if (prod < 0.5f) {
-						
+
+						// If marker is active
+						if (floorMarker.gameObject.activeSelf) {
+							
+							// Inactivate the marker
+							floorMarker.gameObject.SetActive (false);
+						}
+							
 						// Rotate this object to face away from the wall (the normal)
 						this.transform.forward = -hitInfo.normal;
 
@@ -121,7 +146,18 @@ namespace HoloToolkit.Unity
 						this.transform.LookAt(cameraPos);
 
 						// Move the object 1m up
-						this.transform.position = hitInfo.point + Vector3.up*1.0f;
+						this.transform.position = hitInfo.point + Vector3.up;
+
+						// If marker is inactive
+						if (!floorMarker.gameObject.activeSelf) {
+
+							// Activate the marker
+							floorMarker.gameObject.SetActive (true);
+						}
+
+						// Set marker position to gaze position
+						floorMarker.position = hitInfo.point;
+
 					}
 						
 				}
@@ -144,6 +180,10 @@ namespace HoloToolkit.Unity
 				}
 			}
         }
+
+		public void HideFloorMarker(){
+			floorMarker.gameObject.SetActive (false);
+		}
 
         /* public void OnInputClicked(InputEventData eventData)
          {

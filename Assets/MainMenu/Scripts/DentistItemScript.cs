@@ -76,6 +76,7 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
         }
         
     }
+
     public Statuses GetStatus()
     {
         return Status;
