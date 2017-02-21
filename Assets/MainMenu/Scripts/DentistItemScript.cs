@@ -104,18 +104,22 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     }
     void TogglePlacebleObject()
     {
+		print ("DentistItemScript: TogglePlacebleObject");
         DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
         TTP.TogglePlacingStatus();
     }
 
     public void OnInputClicked(InputEventData eventData)
     {
+		print ("DentistItemScript: OnInputClicked");
         switch (Status)
         {
             case Statuses.ReadyToPlace:
+			print ("DentistItemScript: OnInputClicked: ReadyToPlace");
                 TogglePlacebleObject();
                 break;
             case Statuses.Placing:
+			print ("DentistItemScript: OnInputClicked: Placing");
                 ChangeStatus(Statuses.Enabled);
                 break;
         }
