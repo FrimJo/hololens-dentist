@@ -101,8 +101,8 @@ namespace HoloToolkit.Unity
                     {
 
                         // Move this object to where the raycast
-                        // hit the Spatial Mapping mesh.
-                        this.transform.position = hitInfo.point;
+                        // hit the Spatial Mapping mesh and mvoe it closer to the user, away from the wall.
+                        this.transform.position = hitInfo.point - Camera.main.transform.forward.normalized * (hitInfo.transform.lossyScale.z/2.0f);
 
                         // Get the position of the camera
                         Vector3 cameraPos = Camera.main.transform.position;
@@ -153,6 +153,11 @@ namespace HoloToolkit.Unity
                 }
 
 			}
+        }
+
+        public bool isPlacing()
+        {
+            return placing;
         }
 
         private void StraightPlacement(bool isMenu)

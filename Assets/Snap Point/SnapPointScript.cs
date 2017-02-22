@@ -29,7 +29,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	private Renderer _renderer;
 	private SphereCollider _collider;
 	private DentistItemScript _parentScript;
-    private Transform _snappedTransform;
+    private HoloToolkit.Unity.DentistItem_TapToPlace _snappItem;
 
 	void Awake() {
 		_animator = GetComponent<Animator> ();
@@ -51,7 +51,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	void Update () {
 
         // If we have a transform snapped
-        if(_snappedTransform != null)
+        if(_snappItem != null)
         {
             // Get the position of the camera
             Vector3 cameraPos = Camera.main.transform.position;
@@ -59,7 +59,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
             // Rotate this object to face the camera as
             // if the camera were at the same y-position as the object.
             cameraPos.y = transform.position.y;
-            _snappedTransform.LookAt(cameraPos);
+            _snappItem.transform.LookAt(cameraPos);
         }
 
         
@@ -88,10 +88,10 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
         print("SnapPointScript: OnInputClicked");
 
         // If we have a wrapper snapping
-        if (_snappedTransform != null)
+        if (_snappItem != null && _snappItem.isPlacing())
         {
             // Send all the clicks through
-            _snappedTransform.GetComponent<DentistItemScript>().OnInputClicked(eventData);
+            _snappItem.GetComponent<DentistItemScript>().OnInputClicked(eventData);
         }
 
 		// If we foud a script on parent and it is not already ReadyToPlace and there is no collision
@@ -113,7 +113,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
         if (other.tag.Equals("Wrapper"))
         {
             _animator.SetBool("isFocus", true);
-            _snappedTransform = other.GetComponent<Transform>();
+            _snappItem = other.GetComponent<HoloToolkit.Unity.DentistItem_TapToPlace>();
         }
     }
 
@@ -124,7 +124,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
         if (other.tag.Equals("Wrapper"))
         {
             _animator.SetBool("isFocus", false);
-            _snappedTransform = null;
+            _snappItem = null;
         }
     }
 }
