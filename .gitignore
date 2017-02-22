@@ -27,6 +27,5 @@ ExportedObj/
 sysinfo.txt
 
 /App/
-Assets/MainScene.unity
-
-Assets/MainScene.unity
+/Assets/VSCode.meta
+/Assets/VSCode/
