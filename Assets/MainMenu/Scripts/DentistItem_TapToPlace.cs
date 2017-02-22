@@ -40,6 +40,7 @@ namespace HoloToolkit.Unity
         /// Keeps track of if the user is moving the object or not.
         /// </summary>
 		private bool placing;
+        private SnapPointScript atSnapPoint;
 
         private void Start()
         {
@@ -73,16 +74,22 @@ namespace HoloToolkit.Unity
         {
 			
 
+
             //placing = gameObject.GetComponent<DentistItemScript>().GetStatus().Equals(DentistItemScript.Statuses.Placing);
             // If the user is in placing mode,
             // update the placement to match the user's gaze.
 			if (placing) {
-				
-		
+
+                if (atSnapPoint != null)
+                {
+                    atSnapPoint = null;
+                }
+                   
+
                 SnapPointScript[] snapPoints = GetComponentsInChildren<SnapPointScript>();
                 MainMenuScript[] mainMenu = GetComponentsInChildren<MainMenuScript>();
 
-                // If we don't have any snappoints
+                // If we're not moving snappoints or menu
                 if (snapPoints.Length == 0 && mainMenu.Length == 0) {
 
                     // Do a raycast into the world that will only hit the Spatial Mapping mesh.
@@ -92,6 +99,8 @@ namespace HoloToolkit.Unity
                     if (Physics.Raycast(headPosition, gazeDirection, out hitInfo,
                             30.0f, spatialMappingManager.LayerMask))
                     {
+
+                        print("raycast hit spatialMapping");
 
                         // Rotate this object to face away from the wall (the normal)
                         this.transform.forward = -hitInfo.normal;
@@ -111,6 +120,9 @@ namespace HoloToolkit.Unity
                         // Move this object to where the raycast
                         // hit the Spatial Mapping mesh.
                         this.transform.position = hitInfo.point + (norm * halfDepth);
+                    } else
+                    {
+                        StraightPlacement();
                     }
 
                     var snapPointLayer = 8;
@@ -120,6 +132,14 @@ namespace HoloToolkit.Unity
                     if (Physics.Raycast(headPosition, gazeDirection, out hitInfo,
                         30.0f, layermask))
                     {
+
+                        //print("raycast hit snappoint");
+
+                        if(atSnapPoint == null)
+                        {
+                            atSnapPoint = hitInfo.collider.gameObject.GetComponent<SnapPointScript>();
+                        }
+                            
 
                         // Get the hitt transforms position
                         this.transform.position = hitInfo.transform.position;
@@ -136,19 +156,24 @@ namespace HoloToolkit.Unity
                 // If we have snappoints in the wraper, use this placement
                 else
                 {
-                    // Get the position of the camera
-                    Vector3 cameraPos = Camera.main.transform.position;
-
-                    // Move the object 2m in front of the camera
-                    this.transform.position = cameraPos + Camera.main.transform.forward.normalized * 2.0f;
-
-                    // Rotate this object to face the camera as
-                    // if the camera were at the same y-position as the object.
-                    cameraPos.y = transform.position.y;
-                    this.transform.LookAt(cameraPos);
+                    StraightPlacement();
                 }
 
 			}
+        }
+
+        private void StraightPlacement()
+        {
+            // Get the position of the camera
+            Vector3 cameraPos = Camera.main.transform.position;
+
+            // Move the object 2m in front of the camera
+            this.transform.position = cameraPos + Camera.main.transform.forward.normalized * 2.0f;
+
+            // Rotate this object to face the camera as
+            // if the camera were at the same y-position as the object.
+            cameraPos.y = transform.position.y;
+            this.transform.LookAt(cameraPos);
         }
 
         /* public void OnInputClicked(InputEventData eventData)
@@ -161,12 +186,12 @@ namespace HoloToolkit.Unity
 			print ("DentistItem_TapToPlace: SetPlacingStatus");
 			print (NewPlacingStatus);
             // On each tap gesture, toggle whether the user is in placing mode, and toggle kinematic.
-			 placing = NewPlacingStatus;
+
+            placing = NewPlacingStatus;
 
             // If the user is in placing mode, display the spatial mapping mesh.
             if (placing)
             {
-	
 
                 spatialMappingManager.DrawVisualMeshes = true;
 
@@ -177,10 +202,18 @@ namespace HoloToolkit.Unity
             // If the user is not in placing mode, hide the spatial mapping mesh.
             else
             {
-				
+
                 spatialMappingManager.DrawVisualMeshes = false;
                 // Add world anchor when object placement is done.
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
+
+
+                // Hide SnapPoint if at SnapPoint
+                if (atSnapPoint != null) { 
+                    atSnapPoint.enabled = false;
+                }
+
+
                 //Chnage status of item to enabled
                 /*
                 DentistItemScript dis = gameObject.GetComponent<DentistItemScript>();
@@ -192,6 +225,18 @@ namespace HoloToolkit.Unity
         {
 			print ("DentistItem_TapToPlace: TogglePlacingStatus");
             SetPlacingStatus(!placing);
+        }
+
+        public void Disable()
+        {
+
+            print("DentistItem_TapToPlace: Disable");
+            // If we are to place this object and it was at a snap point, show the snap point and make it move again
+            if (atSnapPoint != null)
+            {
+                print("DentistItem_TapToPlace: Disable: atSnapPoint != null");
+                atSnapPoint.enabled = true;
+            }
         }
     }
 }

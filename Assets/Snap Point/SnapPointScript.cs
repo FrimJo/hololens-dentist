@@ -13,11 +13,14 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
 		set {
 
-			// Enables or disables the SnapPoint
-			_renderer.enabled = enabled;
-			_collider.enabled = enabled;
-			_enabled = enabled;
-		}
+            _enabled = value;
+
+            // Enables or disables the SnapPoint
+            _renderer.enabled = _enabled;
+			_collider.enabled = _enabled;
+            _animator.SetBool("isFocus", !_enabled);
+
+        }
 	}
 		
 	// Private variables used in the script
@@ -26,6 +29,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	private Renderer _renderer;
 	private SphereCollider _collider;
 	private DentistItemScript _parentScript;
+    private Transform _snappedTransform;
 
 	void Awake() {
 		_animator = GetComponent<Animator> ();
@@ -38,16 +42,33 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 		_renderer = GetComponent<Renderer> ();
 		_collider = GetComponent<SphereCollider> ();
 		_parentScript = GetComponentInParent<DentistItemScript> ();
+    
 
 		// Disable the SnapPoint as default
 		//enabled = false;
 	}
 
-	void Update () {}
+	void Update () {
+
+        // If we have a transform snapped
+        if(_snappedTransform != null)
+        {
+            // Get the position of the camera
+            Vector3 cameraPos = Camera.main.transform.position;
+
+            // Rotate this object to face the camera as
+            // if the camera were at the same y-position as the object.
+            cameraPos.y = transform.position.y;
+            this.transform.LookAt(cameraPos);
+        }
+
+        
+    }
 
 	// When a user looks at the SnapPoint stop animation
 	public void OnGazeEnter()
 	{
+        print("OnGazeEnter");
 		// Put animation to starting position and stop
 		//_animator.enabled = false;
 		_animator.SetBool ("isFocus", true);
@@ -56,10 +77,11 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	// When a user stop looks at the SnapPoint start animation
 	public void OnGazeExit()
 	{
-		// Start animation
-		//_animator.enabled = true;
-		_animator.SetBool ("isFocus", false);
-	}
+        print("OnGazeExit");
+        // Start animation
+        //_animator.enabled = true;
+        _animator.SetBool ("isFocus", false);
+    }
 
 	public void OnInputClicked(InputEventData eventData)
 	{
@@ -76,4 +98,26 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
 	}
 
+   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("OnTriggerEnter");
+
+        if (other.tag.Equals("Wrapper"))
+        {
+            _animator.SetBool("isFocus", true);
+            _snappedTransform = other.GetComponent<Transform>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        print("OnTriggerExit");
+
+        if (other.tag.Equals("Wrapper")) { 
+            _animator.SetBool("isFocus", false);
+            _snappedTransform = null;
+        }
+    }
 }

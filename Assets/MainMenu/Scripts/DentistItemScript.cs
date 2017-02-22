@@ -42,6 +42,9 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                     setWrapperVisibility(false);
                     setChildrenVisibility(false);
                     this.GetComponentInChildren<Animator>().SetBool("isVisible", false);
+                    DentistItem_TapToPlace TTP = GetComponent<DentistItem_TapToPlace>();
+                    TTP.Disable();
+                    print("DentistItemScript: ChangeStatus: Statuses.Disabled");
                     //Hide wrapper (and its children)
                     break;
                 case Statuses.Enabled:
@@ -61,14 +64,14 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                 //When item is being placed and will be enabled upon click.
                 case Statuses.Placing:
                     SetPlacableObject(true);
-                        setWrapperVisibility(true);
-                        //SHow wrapper
-                        if (Status.Equals(Statuses.Disabled))
-                        {
-                            //Show Content
-                            setChildrenVisibility(true);
-                            this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
-                        }
+                    setWrapperVisibility(true);
+                    //SHow wrapper
+                    if (Status.Equals(Statuses.Disabled))
+                    {
+                        //Show Content
+                        setChildrenVisibility(true);
+                        this.GetComponentInChildren<Animator>().SetBool("isVisible", true);
+                    }
                     break;
             }
             Status = newStatus;
@@ -112,15 +115,13 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
 
     public void OnInputClicked(InputEventData eventData)
     {
-		print ("DentistItemScript: OnInputClicked");
+		
         switch (Status)
         {
             case Statuses.ReadyToPlace:
-			print ("DentistItemScript: OnInputClicked: ReadyToPlace");
                 TogglePlacebleObject();
                 break;
             case Statuses.Placing:
-			print ("DentistItemScript: OnInputClicked: Placing");
                 ChangeStatus(Statuses.Enabled);
                 break;
         }
