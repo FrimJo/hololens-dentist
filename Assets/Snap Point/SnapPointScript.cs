@@ -59,7 +59,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
             // Rotate this object to face the camera as
             // if the camera were at the same y-position as the object.
             cameraPos.y = transform.position.y;
-            this.transform.LookAt(cameraPos);
+            _snappedTransform.LookAt(cameraPos);
         }
 
         
@@ -87,8 +87,16 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	{
         print("SnapPointScript: OnInputClicked");
 
-		// If we foud a script on parent and it is not already ReadyToPlace
-		if (_parentScript != null && !_parentScript.GetStatus().Equals(DentistItemScript.Statuses.Placing)) {
+        // If we have a wrapper snapping
+        if (_snappedTransform != null)
+        {
+            // Send all the clicks through
+            _snappedTransform.GetComponent<DentistItemScript>().OnInputClicked(eventData);
+        }
+
+		// If we foud a script on parent and it is not already ReadyToPlace and there is no collision
+		else if (_parentScript != null && !_parentScript.GetStatus().Equals(DentistItemScript.Statuses.Placing))
+        {
 
             print("SnapPointScript: OnInputClicked: status not placing");
 
@@ -97,8 +105,6 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 		}	
 
 	}
-
-   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -115,7 +121,8 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
     {
         print("OnTriggerExit");
 
-        if (other.tag.Equals("Wrapper")) { 
+        if (other.tag.Equals("Wrapper"))
+        {
             _animator.SetBool("isFocus", false);
             _snappedTransform = null;
         }

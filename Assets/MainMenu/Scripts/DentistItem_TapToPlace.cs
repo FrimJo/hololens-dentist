@@ -100,29 +100,22 @@ namespace HoloToolkit.Unity
                             30.0f, spatialMappingManager.LayerMask))
                     {
 
-                        print("raycast hit spatialMapping");
-
-                        // Rotate this object to face away from the wall (the normal)
-                        this.transform.forward = -hitInfo.normal;
-
-                        // Get half the size of the object
-                        float halfDepth = this.transform.lossyScale.z / 2.0f;
-
-                        // Get the normal of the hit object
-                        Vector3 norm = hitInfo.normal;
-
-                        // Remove the y-axis
-                        norm.y = 0.0f;
-
-                        // Renormalize again
-                        norm.Normalize();
-
                         // Move this object to where the raycast
                         // hit the Spatial Mapping mesh.
-                        this.transform.position = hitInfo.point + (norm * halfDepth);
+                        this.transform.position = hitInfo.point;
+
+                        // Get the position of the camera
+                        Vector3 cameraPos = Camera.main.transform.position;
+
+                        // Rotate this object to face the camera as
+                        // if the camera were at the same y-position as the object.
+                        cameraPos.y = transform.position.y;
+                        this.transform.LookAt(cameraPos);
+
+                        
                     } else
                     {
-                        StraightPlacement();
+                        StraightPlacement(false);
                     }
 
                     var snapPointLayer = 8;
@@ -156,19 +149,19 @@ namespace HoloToolkit.Unity
                 // If we have snappoints in the wraper, use this placement
                 else
                 {
-                    StraightPlacement();
+                    StraightPlacement(mainMenu.Length > 0);
                 }
 
 			}
         }
 
-        private void StraightPlacement()
+        private void StraightPlacement(bool isMenu)
         {
             // Get the position of the camera
             Vector3 cameraPos = Camera.main.transform.position;
 
             // Move the object 2m in front of the camera
-            this.transform.position = cameraPos + Camera.main.transform.forward.normalized * 2.0f;
+            this.transform.position = cameraPos + Camera.main.transform.forward.normalized * (isMenu? 3.0f : 2.0f);
 
             // Rotate this object to face the camera as
             // if the camera were at the same y-position as the object.
