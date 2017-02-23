@@ -12,6 +12,8 @@ public class JournalListManager : MonoBehaviour
 
     public WindowFocusManager windowManager;
 
+    public WindowBehaivour thisWindow;
+
     PatientManager patientManager;
 
     int lastChangeCount;
@@ -29,11 +31,13 @@ public class JournalListManager : MonoBehaviour
 
         //thisWindow.dataChangedEvent += dataChanged;
     }
-
+    string name = "";
     private void dataChanged(object data)
     {
         if (data is string)
         {
+            name = data.ToString();
+            lastChangeCount = -1;
             print("journal for name: " + data);
         }
     }
@@ -56,14 +60,14 @@ public class JournalListManager : MonoBehaviour
             Destroy(c.gameObject);
         }
 
-        string[] names = patientManager.GetPatients();
+        Journal[] journals = patientManager.GetJournals(name);
 
-        foreach (string name in names)
+        foreach (Journal journal in journals)
         {
             GameObject go = (GameObject)Instantiate(PatientEntryPrefab);
             go.transform.SetParent(this.transform, false);
-            go.transform.Find("name").GetComponent<Text>().text = name;
-            go.transform.Find("count").GetComponent<Text>().text = "size of: " + patientManager.GetJournals(name).Length;
+            go.transform.Find("description").GetComponent<Text>().text = journal.Logg;
+            go.transform.Find("date").GetComponent<Text>().text = journal.Date.ToString();
 
             EventTrigger trigger = go.AddComponent<EventTrigger>();
             //EventTrigger trigger = GetComponentInParent<EventTrigger>();
@@ -78,13 +82,19 @@ public class JournalListManager : MonoBehaviour
     {
         try
         {
-            string name = eventData.selectedObject.transform.Find("name").GetComponent<Text>().text;
-            windowManager.ShowWindowName("Journals", name);
-
+            Transform t = eventData.selectedObject.transform;
+            Text[] texts = t.GetComponentsInChildren<Text>();
+            print(texts[0].text);
+            windowManager.ShowWindowName("JournalWindow", name);
         }
         catch (Exception e)
         {
             // pallar inte felsöka
         }
+    }
+
+    public void CreateNewJournal()
+    {
+        windowManager.ShowWindowName("JournalWindow", name);
     }
 }

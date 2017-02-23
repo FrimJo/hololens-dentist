@@ -20,6 +20,7 @@ public class FocusDictationInput : MonoBehaviour {
     private void DictaitonChanged(string text)
     {
         print(text);
+        GetComponent<InputField>().text = text;
     }
 
     public void onGaze()
@@ -27,7 +28,7 @@ public class FocusDictationInput : MonoBehaviour {
         if (dictationManager)
         {
             dictationManager.SetDictationListener(this, new DictaionEventHandler(DictaitonChanged));
-            GetComponent<InputField>().text = "Erik";
+            GetComponent<InputField>().text = "David Bergvik";
         }
     }
 }
