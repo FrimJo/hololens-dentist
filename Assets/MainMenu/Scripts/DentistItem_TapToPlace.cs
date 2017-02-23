@@ -44,8 +44,7 @@ namespace HoloToolkit.Unity
 
         private void Start()
         {
-
-
+            
             // Make sure we have all the components in the scene we need.
             anchorManager = WorldAnchorManager.Instance;
             if (anchorManager == null)
@@ -190,7 +189,7 @@ namespace HoloToolkit.Unity
             // If the user is in placing mode, display the spatial mapping mesh.
             if (placing)
             {
-
+            
                 spatialMappingManager.DrawVisualMeshes = true;
 
                 Debug.Log(gameObject.name + " : Removing existing world anchor if any.");

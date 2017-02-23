@@ -13,12 +13,13 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     public enum Statuses { Disabled, Enabled, Placing, ReadyToPlace };
     [Tooltip("Template picture for selected feature NOT ACTIVE")]
     public Texture itemTexture;
+
     // Use this for initialization
     void Start () {
-    WrapperVisible = false;
-    Status = Statuses.Disabled;
-    setWrapperVisibility(false);
-    SetTexture();
+        WrapperVisible = false;
+        Status = Statuses.Disabled;
+        setWrapperVisibility(false);
+        SetTexture();
     }
     private void SetTexture()
     {
