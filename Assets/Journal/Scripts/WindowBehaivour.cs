@@ -11,10 +11,13 @@ public class WindowBehaivour : MonoBehaviour {
 
     public event OnDataChangedEvent dataChangedEvent;
 
+    
+
     // Use this for initialization
     void Start()
     {
         //panel = this.GetComponentInChildren<SpatialPanelManager>();
+
     }
 
     // Update is called once per frame
@@ -26,7 +29,13 @@ public class WindowBehaivour : MonoBehaviour {
     public void Show()
     {
         this.gameObject.SetActive(true);
-        this.gameObject.GetComponentInChildren<SpatialPanelManager>().FocusOnPanel();
+        panel.FocusOnPanel();
+
+        Animator anm = GetComponent<Animator>();
+        if (anm)
+        {
+            anm.SetTrigger("Show");
+        }
     }
 
     public void Show(object data)
@@ -41,7 +50,12 @@ public class WindowBehaivour : MonoBehaviour {
 
     public void Hide()
     {
-        this.gameObject.GetComponentInChildren<SpatialPanelManager>().UnFocusPanel();
+        Animator anm = GetComponent<Animator>();
+        if (anm)
+        {
+            anm.SetTrigger("Hide");
+        }
+        panel.UnFocusPanel();
         this.gameObject.SetActive(false);
     }
 

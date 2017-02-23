@@ -1,11 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PatientManager : MonoBehaviour {
 
-    Dictionary<string, Dictionary<int, Journal>> patientJournals;
+    public abstract class TYPES
+    {
+        public const int Examination = 1;
+        public const int Prosthetics = 2;
+    }
+
+    public abstract class DESCRIPTIONS
+    {
+        public const int Preschoolers = 1;
+        public const int Children = 2;
+        public const int Adult = 3;
+        public const int Epicrisis = 4;
+        public const int Investigation = 5;
+        public const int InvestigationHospitalDentistry = 6;
+        public const int InvestigationProsthetics = 7;
+    }
+
+    Dictionary<string, List<Journal>> patientJournals;
 
     int changeCount = 0;
     
@@ -20,10 +38,10 @@ public class PatientManager : MonoBehaviour {
     {
         if (patientJournals != null)
             return;
-        patientJournals = new Dictionary<string, Dictionary<int, Journal>>();
-        patientJournals["mattias"] = new Dictionary<int, Journal>();
-        patientJournals["mattias"][0] = new Journal() { Description = "This is a test to test jurnals" };
-        patientJournals["mattias"][1] = new Journal() { Description = "Second Journal to test with" };
+        patientJournals = new Dictionary<string, List<Journal>>();
+        patientJournals["mattias"] = new List<Journal>(5);
+        patientJournals["mattias"].Add( new Journal("mattias") { Logg = "This is a test to test jurnals", Date = new DateTime(), Type = TYPES.Examination, Description = DESCRIPTIONS.Investigation });
+        patientJournals["mattias"].Add( new Journal("mattias") { Logg = "Second Journal to test with", Date = new DateTime(), Type = TYPES.Examination, Description = DESCRIPTIONS.InvestigationProsthetics });
     } 
 	
     public Journal GetJournal(string name, int journalNr)
@@ -31,7 +49,7 @@ public class PatientManager : MonoBehaviour {
         Init();
         if (patientJournals.ContainsKey(name) == false)
             return null;
-        else if (patientJournals[name].ContainsKey(journalNr) == false)
+        else if (patientJournals[name].Count < journalNr)
             return null;
         else 
             return patientJournals[name][journalNr];
@@ -61,18 +79,13 @@ public class PatientManager : MonoBehaviour {
         if (patientJournals.ContainsKey(name) == false)
             return new Journal[0];
 
-        Journal[] journals = patientJournals[name].Values.ToArray();
-        /*
-        Journal[] journals = new Journal[patientJournals[name].Count];
-        int index = 0;
-
-        foreach(KeyValuePair<int, Journal> dictValue in patientJournals[name])
+        List<Journal> list = patientJournals[name];
+        Journal[] js = new Journal[list.Count];
+        foreach (Journal j in list)
         {
-            journals[index] = dictValue.Value;
-            index++;
+            Debug.Log(j);
         }
-        */
-        return journals;
+        return list.ToArray<Journal>();
     }
 
     public void CreatePatient()
@@ -80,9 +93,9 @@ public class PatientManager : MonoBehaviour {
         Init();
         if (changeCount == 0)
         {
-            patientJournals["Bob"] = new Dictionary<int, Journal>();
-            patientJournals["Bob"][0] = new Journal() { Description = "This is a test to test jurnals" };
-            patientJournals["Bob"][1] = new Journal() { Description = "Second Journal to test with" };
+            patientJournals["Bob"] = new List<Journal>();
+            patientJournals["Bob"].Add(new Journal("Bob") { Logg = "This is a test to test jurnals" });
+            patientJournals["Bob"].Add(new Journal("Bob") { Logg = "Second Journal to test with" });
             
         }
 
@@ -90,12 +103,42 @@ public class PatientManager : MonoBehaviour {
 
     }
 
+    public void InsertOrUpdateJournal(Journal toUpdate)
+    {
+        if (patientJournals.ContainsKey(toUpdate.Name))
+        {
+            bool isDone = false;
+            List<Journal> journals = patientJournals[toUpdate.Name];
+            for (int i = 0; i < journals.Count(); i++)
+            {
+                if (journals[i] == toUpdate)
+                {
+                    isDone = true;
+                    journals[i] = toUpdate;
+                    changeCount++;
+                    break;
+                }
+            }
+            if (!isDone)
+            {
+                patientJournals[toUpdate.Name].Add(toUpdate);
+                changeCount++;
+            }
+        } else
+        {
+            patientJournals[name] = new List<Journal>(5);
+            patientJournals[name].Add(toUpdate);
+            changeCount++;
+        }
+    }
+
+
     public bool CreatePatient(string name)
     {
         Init();
         if (!patientJournals.ContainsKey(name))
         {
-            patientJournals[name] = new Dictionary<int, Journal>();
+            patientJournals[name] = new List<Journal>(5);
             changeCount++;
             return true;
         }
