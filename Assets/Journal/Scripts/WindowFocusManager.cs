@@ -83,17 +83,14 @@ public class WindowFocusManager : MonoBehaviour {
         window.Show(data);
         UnFocusAll();
         window.Focus();
-        currentActive = window;
+        //currentActive = window;
     }
 
     public void UnFocusAll()
     {
         foreach (WindowBehaivour p in panels)
         {
-            if (p != null)
-            {
-                p.Unfocus();
-            }
+            p.Unfocus();
         }
     }
 
