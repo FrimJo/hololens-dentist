@@ -8,32 +8,22 @@ public class GazeGestureManager : MonoBehaviour
     // Represents the hologram that is currently being gazed at.
     public GameObject FocusedObject { get; private set; }
 
-    GestureRecognizer recognizer;
-
     // Use this for initialization
     void Start()
     {
-        Instance = this;
 
-        // Set up a GestureRecognizer to detect Select gestures.
-        recognizer = new GestureRecognizer();
-        recognizer.TappedEvent += (source, tapCount, ray) =>
-        {
-            // Send an OnSelect message to the focused object and its ancestors.
-            if (FocusedObject != null)
-            {
-                FocusedObject.SendMessageUpwards("OnSelect");
-            }
-        };
-        recognizer.StartCapturingGestures();
+        Instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-		
-        // Figure out which hologram is focused this frame.
+
+        // Save the old focus to compare with new
         GameObject oldFocusObject = FocusedObject;
+
+        // Empty FocusObject
+        FocusedObject = null;
 
         // Do a raycast into the world based on the user's
         // head position and orientation.
@@ -44,34 +34,26 @@ public class GazeGestureManager : MonoBehaviour
         if (Physics.Raycast(headPosition, gazeDirection, out hitInfo))
         {
 
-			// If we don't have a target as focus, run gaze enter method
-			if (!FocusedObject || oldFocusObject != FocusedObject) {
+            // Get the new focus
+            FocusedObject = hitInfo.collider.gameObject;
 
-				// If the raycast hit a hologram, use that as the focused object.
-				FocusedObject = hitInfo.collider.gameObject;
-
-				FocusedObject.SendMessageUpwards("OnGazeEnter");
-
-			}
+            // If focus has switched, run on gaze exit on old target
+            if (oldFocusObject != FocusedObject)
+            {
+                if (oldFocusObject != null) oldFocusObject.SendMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
+                if (FocusedObject != null) FocusedObject.SendMessage("OnGazeEnter", SendMessageOptions.DontRequireReceiver);
+            }
 
         }
-        else
+
+        // If we didn't hitt a hologram and old focus is not null
+        else if (oldFocusObject != null)
         {
-			// If we have a target as focus, run gaze exit method
-			if (FocusedObject) {
-				FocusedObject.SendMessageUpwards("OnGazeExit");
-			}
 
-            // If the raycast did not hit a hologram, clear the focused object.
-            FocusedObject = null;
+            oldFocusObject.SendMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
+            oldFocusObject = null;
         }
 
-        // If the focused object changed this frame,
-        // start detecting fresh gestures again.
-        if (FocusedObject != oldFocusObject)
-        {
-            recognizer.CancelGestures();
-            recognizer.StartCapturingGestures();
-        }
     }
+
 }
