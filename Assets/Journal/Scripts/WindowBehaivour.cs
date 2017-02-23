@@ -11,13 +11,15 @@ public class WindowBehaivour : MonoBehaviour {
 
     public event OnDataChangedEvent dataChangedEvent;
 
+    Vector3 scale;
     
 
     // Use this for initialization
     void Start()
     {
         //panel = this.GetComponentInChildren<SpatialPanelManager>();
-
+        scale = this.transform.localScale;
+        Debug.Log(scale);
     }
 
     // Update is called once per frame
@@ -28,13 +30,15 @@ public class WindowBehaivour : MonoBehaviour {
 
     public void Show()
     {
-        this.gameObject.SetActive(true);
+        //this.transform.localScale = scale;
+        //this.gameObject.SetActive(true);
         panel.FocusOnPanel();
 
         Animator anm = GetComponent<Animator>();
         if (anm)
         {
-            anm.SetTrigger("Show");
+            //anm.SetTrigger("Show");
+            anm.SetBool("IsVisible", true);
         }
     }
 
@@ -53,10 +57,12 @@ public class WindowBehaivour : MonoBehaviour {
         Animator anm = GetComponent<Animator>();
         if (anm)
         {
-            anm.SetTrigger("Hide");
+            //anm.SetTrigger("Hide");
+            anm.SetBool("IsVisible", false);
         }
         panel.UnFocusPanel();
-        this.gameObject.SetActive(false);
+        //this.transform.localScale = new Vector3(0, 0, 0);
+        //this.gameObject.SetActive(false);
     }
 
     public void Focus()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WindowFocusManager : MonoBehaviour {
 
-    WindowBehaivour currentActive;
+    //WindowBehaivour currentActive;
     WindowBehaivour[] panels;
     bool hasInit = false;
 
@@ -34,8 +34,8 @@ public class WindowFocusManager : MonoBehaviour {
             if (i == 0)
             {
                 panels[i].Show();
-                currentActive = panels[i];
-                currentActive.Focus();
+                //currentActive = panels[i];
+                //currentActive.Focus();
             }
             else
             {
@@ -47,21 +47,25 @@ public class WindowFocusManager : MonoBehaviour {
 
     public void SetActivePanel(WindowBehaivour window)
     {
+        /*
         if (currentActive)
         {
             currentActive.Unfocus();
         }
-
+        */
+        UnFocusAll();
         window.Focus();
-        currentActive = window;
+        //currentActive = window;
     }
 
     public void DismissWindow(WindowBehaivour window)
     {
+        /*
         if (currentActive.GetInstanceID() == window.GetInstanceID())
         {
             currentActive = null;
         }
+        */
         window.Hide();
     }
 
@@ -70,16 +74,16 @@ public class WindowFocusManager : MonoBehaviour {
         window.Show();
         UnFocusAll();
         window.Focus();
-        currentActive = window;
+        //currentActive = window;
         
     }
 
     public void ShowWindow(WindowBehaivour window, object data)
     {
         window.Show(data);
+        UnFocusAll();
         window.Focus();
-        window.Focus();
-        currentActive = window;
+        //currentActive = window;
     }
 
     public void UnFocusAll()
