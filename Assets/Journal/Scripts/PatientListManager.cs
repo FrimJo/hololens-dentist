@@ -52,7 +52,7 @@ public class PatientListManager : MonoBehaviour {
             GameObject go = (GameObject)Instantiate(PatientEntryPrefab);
             go.transform.SetParent(this.transform, false);
             go.transform.Find("name").GetComponent<Text>().text = name;
-            go.transform.Find("count").GetComponent<Text>().text = "size of: " + patientManager.GetJournals(name).Length;
+            //go.transform.Find("count").GetComponent<Text>().text = "size of: " + patientManager.GetJournals(name).Length;
 
             EventTrigger trigger = go.AddComponent<EventTrigger>();
             //EventTrigger trigger = GetComponentInParent<EventTrigger>();

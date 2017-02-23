@@ -26,7 +26,7 @@ public class JournalWindowManager : MonoBehaviour {
     {
         if (source is string)
         {
-            thisJournal = new Journal(source as string) { Date = new DateTime() };
+            thisJournal = new Journal(source as string) { Date = "24/02/2017" };
             TypeValue.value = PatientManager.TYPES.Examination;
             Description.value = PatientManager.DESCRIPTIONS.Adult;
 
@@ -58,7 +58,7 @@ public class JournalWindowManager : MonoBehaviour {
         thisJournal.Type = TypeValue.value;
         thisJournal.Description = Description.value;
         thisJournal.Logg = Logg.text;
-        thisJournal.Date = new DateTime();
+        thisJournal.Date = "24/02/2017";
         patientManager.InsertOrUpdateJournal(thisJournal);
         windowManager.DismissWindow(thisWindow);
     }

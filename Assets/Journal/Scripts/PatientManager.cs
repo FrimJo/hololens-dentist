@@ -21,6 +21,28 @@ public class PatientManager : MonoBehaviour {
         public const int Investigation = 5;
         public const int InvestigationHospitalDentistry = 6;
         public const int InvestigationProsthetics = 7;
+
+        public static string GetString(int i)
+        {
+            switch(i)
+            {
+                case 1:
+                    return "Preschoolers";
+                case 2:
+                    return "Children";
+                case 3:
+                    return "Adult";
+                case 4:
+                    return "Epicrisis";
+                case 5:
+                    return "Investigation";
+                case 6:
+                    return "Investigation Hospital Dentistry";
+                case 7:
+                    return "Investigation Prosthetics";
+            }
+            return "";
+        }
     }
 
     Dictionary<string, List<Journal>> patientJournals;
@@ -39,9 +61,9 @@ public class PatientManager : MonoBehaviour {
         if (patientJournals != null)
             return;
         patientJournals = new Dictionary<string, List<Journal>>();
-        patientJournals["mattias"] = new List<Journal>(5);
-        patientJournals["mattias"].Add( new Journal("mattias") { Logg = "This is a test to test jurnals", Date = new DateTime(), Type = TYPES.Examination, Description = DESCRIPTIONS.Investigation });
-        patientJournals["mattias"].Add( new Journal("mattias") { Logg = "Second Journal to test with", Date = new DateTime(), Type = TYPES.Examination, Description = DESCRIPTIONS.InvestigationProsthetics });
+        patientJournals["Mattias Edin"] = new List<Journal>(5);
+        patientJournals["Mattias Edin"].Add( new Journal("mattias") { Logg = "This is a test to test jurnals", Date = "4/01/2017", Type = TYPES.Examination, Description = DESCRIPTIONS.Investigation });
+        patientJournals["Mattias Edin"].Add( new Journal("mattias") { Logg = "Second Journal to test with", Date = "21/02/2017", Type = TYPES.Examination, Description = DESCRIPTIONS.InvestigationProsthetics });
     } 
 	
     public Journal GetJournal(string name, int journalNr)

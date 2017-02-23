@@ -66,7 +66,8 @@ public class JournalListManager : MonoBehaviour
         {
             GameObject go = (GameObject)Instantiate(PatientEntryPrefab);
             go.transform.SetParent(this.transform, false);
-            go.transform.Find("description").GetComponent<Text>().text = journal.Logg;
+
+            go.transform.Find("description").GetComponent<Text>().text = PatientManager.DESCRIPTIONS.GetString(journal.Description);
             go.transform.Find("date").GetComponent<Text>().text = journal.Date.ToString();
 
             EventTrigger trigger = go.AddComponent<EventTrigger>();
