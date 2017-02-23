@@ -68,7 +68,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	// When a user looks at the SnapPoint stop animation
 	public void OnGazeEnter()
 	{
-        print("OnGazeEnter");
+        //print("OnGazeEnter");
 		// Put animation to starting position and stop
 		//_animator.enabled = false;
 		_animator.SetBool ("isFocus", true);
@@ -77,7 +77,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	// When a user stop looks at the SnapPoint start animation
 	public void OnGazeExit()
 	{
-        print("OnGazeExit");
+        //print("OnGazeExit");
         // Start animation
         //_animator.enabled = true;
         _animator.SetBool ("isFocus", false);
@@ -85,7 +85,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
 	public void OnInputClicked(InputEventData eventData)
 	{
-        print("SnapPointScript: OnInputClicked");
+        //print("SnapPointScript: OnInputClicked");
 
         // If we have a wrapper snapping
         if (_snappItem != null && _snappItem.isPlacing())
@@ -98,7 +98,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 		else if (_parentScript != null && !_parentScript.GetStatus().Equals(DentistItemScript.Statuses.Placing))
         {
 
-            print("SnapPointScript: OnInputClicked: status not placing");
+            //print("SnapPointScript: OnInputClicked: status not placing");
 
             // Set it to ReadyToPlace
             _parentScript.ChangeStatus (DentistItemScript.Statuses.Placing);
@@ -108,7 +108,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
     private void OnTriggerEnter(Collider other)
     {
-        print("OnTriggerEnter");
+        //print("OnTriggerEnter");
 
         if (other.tag.Equals("Wrapper"))
         {
@@ -119,7 +119,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 
     private void OnTriggerExit(Collider other)
     {
-        print("OnTriggerExit");
+        //print("OnTriggerExit");
 
         if (other.tag.Equals("Wrapper"))
         {
