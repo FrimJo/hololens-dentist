@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
-    private PanelColorManager panelColorManager;
+    //private PanelColorManager panelColorManager;
     public WindowFocusManager windowFocusManager;
     public GameObject SpatialPanelPrefab;
     public String PanelTagName = "NoNamePanel";
     public int thickness = 50;
 
-    GameObject panel;
+    //GameObject panel;
 
     internal String GetTagName()
     {
@@ -22,7 +22,7 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     // Use this for initialization
     void Start () {
-        
+        /*
         GameObject go = (GameObject)Instantiate(SpatialPanelPrefab);
         
         RectTransform canvasRect = this.GetComponent<RectTransform>();
@@ -40,7 +40,7 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
         panelColorManager = go.GetComponent<PanelColorManager>();
         panel = go;
-        
+        */
     }
 	
 	// Update is called once per frame
@@ -50,10 +50,10 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
     public void FocusOnPanel()
     {
-        panelColorManager.Enable();
-        UpdatePosition();
+        //panelColorManager.Enable();
+        //UpdatePosition();
     }
-    
+    /*
     private void UpdatePosition()
     {
         RectTransform canvasRect = this.GetComponent<RectTransform>();
@@ -67,10 +67,10 @@ public class SpatialPanelManager : MonoBehaviour, IInputClickHandler {
 
         panel.transform.position = new Vector3(canvasPos.x, canvasPos.y, zPos);
     }
-
+    */
     public void UnFocusPanel()
     {
-        panelColorManager.Disable();
+        //panelColorManager.Disable();
     }
 
     public void OnInputClicked(InputEventData eventData)
