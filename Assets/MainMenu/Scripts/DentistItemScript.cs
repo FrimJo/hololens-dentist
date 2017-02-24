@@ -10,16 +10,19 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
     private Renderer renderer;
     private Statuses Status;
     private bool WrapperVisible;
+    private Color OrgColor;
     public enum Statuses { Disabled, Enabled, Placing, ReadyToPlace };
     [Tooltip("Template picture for selected feature NOT ACTIVE")]
     public Texture itemTexture;
 
     // Use this for initialization
     void Start () {
+        renderer = GetComponent<Renderer>();
         WrapperVisible = false;
         Status = Statuses.Disabled;
         setWrapperVisibility(false);
         SetTexture();
+        OrgColor = renderer.material.color;
     }
     private void SetTexture()
     {
@@ -123,9 +126,40 @@ public class DentistItemScript : MonoBehaviour , IInputClickHandler
                 TogglePlacebleObject();
                 break;
             case Statuses.Placing:
-                ChangeStatus(Statuses.Enabled);
+
+                if (CollideObject != null) Destroy(gameObject);
+                else ChangeStatus(Statuses.Enabled);
+
                 break;
         }
         
     }
+
+    private GameObject CollideObject;
+    private GameObject CollideObjectOrgColor;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag.Equals("SnapPointSpawner"))
+        {
+            CollideObject = other.gameObject;
+            renderer.material.color = new Color(255 / 255.0f, 101 / 255.0f, 119 / 255.0f);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (CollideObject != null && !CollideObject.Equals(other.gameObject)) OnTriggerEnter(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("SnapPointSpawner"))
+        {
+            renderer.material.color = OrgColor;
+            CollideObject = null;
+        }
+    }
+
 }

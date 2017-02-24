@@ -40,8 +40,8 @@ public class GazeGestureManager : MonoBehaviour
             // If focus has switched, run on gaze exit on old target
             if (oldFocusObject != FocusedObject)
             {
-                if (oldFocusObject != null) oldFocusObject.SendMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
-                if (FocusedObject != null) FocusedObject.SendMessage("OnGazeEnter", SendMessageOptions.DontRequireReceiver);
+                if (oldFocusObject != null) oldFocusObject.BroadcastMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
+                if (FocusedObject != null) FocusedObject.BroadcastMessage("OnGazeEnter", SendMessageOptions.DontRequireReceiver);
             }
 
         }
@@ -50,7 +50,7 @@ public class GazeGestureManager : MonoBehaviour
         else if (oldFocusObject != null)
         {
 
-            oldFocusObject.SendMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
+            oldFocusObject.BroadcastMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
             oldFocusObject = null;
         }
 

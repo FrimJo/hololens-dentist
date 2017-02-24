@@ -22,7 +22,7 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
 		_audio = GetComponent<AudioSource>();
         callingText.gameObject.SetActive(false);
 
-        StopMovie();
+        //StopMovie();
 
         //_movie = (MovieTexture)this.toPlay.GetComponent<Image> ().material.mainTexture;
         //_movie = this.toPlay.GetComponent<Image> ().mainTexture;
@@ -119,7 +119,7 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
         callingText.gameObject.SetActive(false);
 
         // Change the color to white of the raw image
-        _rawImage.color = ConvertColor(34, 117, 199);
+        _rawImage.gameObject.SetActive(false);
 
         // Change color of button to green
         GetComponent<Renderer>().material = playMaterial;
@@ -156,7 +156,7 @@ public class CallButtonManager : MonoBehaviour, IInputClickHandler {
         callingText.gameObject.SetActive(false);
 
         // Change the color to white of the raw image
-        _rawImage.color = ConvertColor(255, 255, 255);
+        _rawImage.gameObject.SetActive(true);
 
         // Play movie
         _movie.Play();

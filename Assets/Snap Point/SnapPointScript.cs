@@ -68,7 +68,7 @@ public class SnapPointScript : MonoBehaviour, IInputClickHandler {
 	// When a user looks at the SnapPoint stop animation
 	public void OnGazeEnter()
 	{
-        //print("OnGazeEnter");
+        print("OnGazeEnter");
 		// Put animation to starting position and stop
 		//_animator.enabled = false;
 		_animator.SetBool ("isFocus", true);
